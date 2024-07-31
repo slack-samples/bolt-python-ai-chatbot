@@ -1,0 +1,4 @@
+slack-bolt
+pytest
+flake8==7.1.0
+black==24.4.2
