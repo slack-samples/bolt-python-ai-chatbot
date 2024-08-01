@@ -46,4 +46,3 @@ class OpenAI_API(BaseProvider):
             Logger.error(f"There's an issue with your API key. {e}")
         except openai.APIStatusError as e:
             Logger.error(f"Another non-200-range status code was received: {e.status_code}")
-
