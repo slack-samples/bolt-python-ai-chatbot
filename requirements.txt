@@ -3,6 +3,5 @@ pytest
 flake8==7.1.0
 black==24.4.2
 slack-cli-hooks==0.0.2
-jurigged==0.5.8
-openai
-anthropic
+openai==1.37.1
+anthropic==0.32.0

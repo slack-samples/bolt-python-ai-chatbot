@@ -1,15 +1,15 @@
-# Slack Chatbot App Template
+# Slack AI Chatbot
 
 This Slack chatbot app template offers a customizable solution for integrating AI-powered conversations into your Slack workspace. Here's what the app can do out of the box:
 
 * Interact with the bot by mentioning it in conversations and threads
 * Send direct messages to the bot for private interactions
-* Use the /ask command to communicate with the bot in channels where it hasn't been added
+* Use the `/ask` command to communicate with the bot in channels where it hasn't been added
 * Utilize a custom function for integration with Workflow Builder to summarize messages in conversations
 * Select your preferred API/model from the app home to customize the bot's responses
-* Bring Your Own Language Model (BYO LLM) for customization
+* Bring Your Own Language Model [BYO LLM](#byo-llm) for customization
 
-Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/c6fbe0d042453a42ef9a625a4394f7613133a1fe)
+Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/main)
 
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 ## Installation
@@ -28,7 +28,7 @@ Before you can run the app, you'll need to store some environment variables.
 2. Click ***Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
 
 ```zsh
-# Replace with your app token, bot token, and the token for whichever api you plan on using
+# Replace with your app token, bot token, and the token for whichever API(s) you plan on using
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 export OPENAI_API_KEY=<your-api-key>
@@ -38,10 +38,10 @@ export ANTHROPIC_API_KEY=<your-api-key>
 ### Setup Your Local Project
 ```zsh
 # Clone this project onto your machine
-git clone https://github.com/srtaalej/bolt-python-chatbot-template.git
+git clone https://github.com/slack-samples/bolt-python-ai-chatbot.git
 
 # Change into this project directory
-cd bolt-python-chatbot-template
+cd bolt-python-ai-chatbot
 
 # Setup your python virtual environment
 python3 -m venv .venv
@@ -79,14 +79,15 @@ Every incoming request is routed to a "listener". Inside this directory, we grou
 
 ### `/ai`
 
-This module is responsible for handling interactions with the APIs and processing their responses.
-It is composed of several files:
+#### `ai/ai_utils`
+This module is responsible for handling interactions with the APIs and processing their responses. It is composed of several files:
+
 * `ai_constants.py`: Defines constants used throughout the AI module.
 * `get_available_apis.py`: Retrieves a list of available API models. When displaying the app home, this function is called to determine which APIs are eligible for selection based on whether their respective API keys have been set.
-* `handle_api_selection.py`: Handles user selection of an API provider.
 * `handle_response.py`: Processes responses from API providers.
-
-The `providers` subdirectory contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To **BYO LLM**, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+<a name="byo-llm"></a>
+#### `ai/providers`
+This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
 
 ## App Distribution / OAuth
 
