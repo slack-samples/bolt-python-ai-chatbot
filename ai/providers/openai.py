@@ -6,13 +6,12 @@ from logging import Logger
 
 class OpenAI_API(BaseProvider):
     MODELS = {
-        "gpt-4o": "GPT-4o",
-        "gpt-4-turbo": "GPT-4 Turbo",
-        "gpt-4": "GPT-4",
-        "gpt-3.5-turbo": "GPT-3.5 Turbo",
+        "gpt-4-turbo": {"name": "GPT-4 Turbo", "api": "OpenAI", "max_tokens": 4096},
+        "gpt-4": {"name": "GPT-4", "api": "OpenAI", "max_tokens": 4096},
+        "gpt-4o": {"name": "GPT-4o", "api": "OpenAI", "max_tokens": 4096},
+        "gpt-4o-mini": {"name": "GPT-4o mini", "api": "OpenAI", "max_tokens": 16384},
+        "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "api": "OpenAI", "max_tokens": 4096},
     }
-    # this is ooptional value -> background on why i used it
-    BASELINE_MAX_TOKENS = 4096
     API_NAME = "OpenAI"
 
     def __init__(self):
@@ -25,7 +24,7 @@ class OpenAI_API(BaseProvider):
 
     def get_models(self):
         if self.api_key is not None:
-            return {self.API_NAME: self.MODELS}
+            return self.MODELS
         else:
             return None
 
@@ -36,7 +35,7 @@ class OpenAI_API(BaseProvider):
                 model=self.current_model,
                 n=1,
                 messages=[{"role": "system", "content": system_content}, {"role": "user", "content": prompt}],
-                max_tokens=self.BASELINE_MAX_TOKENS,
+                max_tokens=self.MODELS[self.current_model]["max_tokens"],
             )
             return response.choices[0].message.content
         except openai.APIConnectionError as e:
@@ -48,9 +47,3 @@ class OpenAI_API(BaseProvider):
         except openai.APIStatusError as e:
             Logger.error(f"Another non-200-range status code was received: {e.status_code}")
 
-
-"""
-MODELS={
-   "gpt-4-turbo": {name: "GPT-4 Turbo", model: "OpenAI", model_type: "gpt-4o"}
-}
-"""

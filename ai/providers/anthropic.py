@@ -6,14 +6,15 @@ from logging import Logger
 
 class AnthropicAPI(BaseProvider):
     MODELS = {
-        "claude-3-5-sonnet-20240620": "Claude 3.5 Sonnet",
-        "claude-3-sonnet-20240229": "Claude 3 Sonnet",
-        "claude-3-haiku-20240307": "Claude 3 Haiku",
-        "claude-3-opus-20240229": "Claude 3 Opus",
+        "claude-3-5-sonnet-20240620": {
+            "name": "Claude 3.5 Sonnet",
+            "api": "Anthropic",
+            "max_tokens": 4096,  # or 8192 with the header anthropic-beta: max-tokens-3-5-sonnet-2024-07-15
+        },
+        "claude-3-sonnet-20240229": {"name": "Claude 3 Sonnet", "api": "Anthropic", "max_tokens": 4096},
+        "claude-3-haiku-20240307": {"name": "Claude 3 Haiku", "api": "Anthropic", "max_tokens": 4096},
+        "claude-3-opus-20240229": {"name": "Claude 3 Opus", "api": "Anthropic", "max_tokens": 4096},
     }
-    # this is ooptional value -> background on why i used it, link to token usage
-    BASELINE_MAX_TOKENS = 10000
-    API_NAME = "Anthropic"
 
     def __init__(self):
         self.api_key = os.environ.get("ANTHROPIC_API_KEY")
@@ -25,7 +26,7 @@ class AnthropicAPI(BaseProvider):
 
     def get_models(self):
         if self.api_key is not None:
-            return {self.API_NAME: self.MODELS}
+            return self.MODELS
         else:
             return None
 
@@ -34,9 +35,9 @@ class AnthropicAPI(BaseProvider):
             client = anthropic.Anthropic(api_key=self.api_key)
             response = client.messages.create(
                 model=self.current_model,
-                max_tokens=1000,
                 system=system_content,
                 messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}],
+                max_tokens=self.MODELS[self.current_model]["max_tokens"],
             )
             return response.content[0].text
         except anthropic.APIConnectionError as e:

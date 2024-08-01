@@ -7,7 +7,8 @@ from ..listener_utils.listener_constants import DEFAULT_LOADING_TEXT
 from ..listener_utils.parse_conversation import parse_conversation
 
 
-# what does this do, whats using it
+# Handles the event when a direct message is sent to the bot, retrieves the conversation context,
+# and generates an AI response.
 def dm_sent_callback(client: WebClient, event, logger: Logger, say: Say):
     channel_id = event.get("channel")
     thread_ts = event.get("thread_ts")
@@ -18,7 +19,7 @@ def dm_sent_callback(client: WebClient, event, logger: Logger, say: Say):
         if channel_id[0] == "D":
             conversation_context = ""
 
-            if thread_ts:  # whats a thread, why does it get context
+            if thread_ts:  # Retrieves context to continue the conversation in a thread.
                 conversation = client.conversations_replies(channel=channel_id, limit=20, ts=thread_ts)["messages"]
                 conversation_context = parse_conversation(conversation)
 

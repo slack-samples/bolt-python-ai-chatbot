@@ -1,7 +1,10 @@
 from logging import Logger
 
 
-# What does this function do, what files use it?
+# Parses a conversation history, excluding messages from the bot,
+# and formats it as a string with user IDs and their messages.
+# Used in `app_mentioned_callback`, `dm_sent_callback`,
+# and `handle_summary_function_callback`.
 def parse_conversation(conversation: str, bot_id: str = ""):
     parsed = ""
     try:

@@ -6,7 +6,8 @@ from ..listener_utils.listener_constants import DEFAULT_LOADING_TEXT, MENTION_WI
 from ..listener_utils.parse_conversation import parse_conversation
 
 
-# what does this function do
+# Handles the event when the app is mentioned in a Slack channel, retrieves the conversation context,
+# and generates an AI response if text is provided, otherwise sends a default response
 def app_mentioned_callback(client: WebClient, event, logger: Logger, say: Say):
     try:
         channel_id = event.get("channel")
@@ -33,6 +34,3 @@ def app_mentioned_callback(client: WebClient, event, logger: Logger, say: Say):
 
     except Exception as e:
         logger.error(e)
-
-
-# why use say vs respond

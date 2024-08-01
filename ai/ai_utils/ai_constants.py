@@ -1,3 +1,6 @@
+# This file defines constant strings used as system messages for configuring the behavior of the AI assistant.
+# Used in `handle_response.py` and `dm_sent.py`
+
 DEFAULT_SYSTEM_CONTENT = """
 You are a helpful AI assistant.
 Respond directly to questions without unnecessarily referencing previous context.

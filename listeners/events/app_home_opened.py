@@ -7,29 +7,33 @@ from state_store.get_user_state import get_user_state
 def app_home_opened_callback(event, logger: Logger, client: WebClient):
     if event["tab"] != "home":
         return
-    # what is options
+
+    # create a list of options for the dropdown menu each containing the model name and API
     options = [
         {
-            "text": {"type": "plain_text", "text": f"{formatted_model_name} ({api_name})", "emoji": True},
-            "value": f"{model_name} {api_name.lower()}",
+            "text": {"type": "plain_text", "text": f"{model_info['name']} ({model_info['api']})", "emoji": True},
+            "value": f"{model_name} {model_info['api'].lower()}",
         }
-        for api_name, models in get_available_apis().items()
-        for model_name, formatted_model_name in models.items()
+        for model_name, model_info in get_available_apis().items()
     ]
 
-    # why user state is needed
+    # retrieve user's state to determine if they already have a selected model
     user_state = get_user_state(event["user"])
     initial_option = None
+
     if user_state:
         initial_model = get_user_state(event["user"])[1]
+        # set the initial option to the user's previously selected model
         initial_option = list(filter(lambda x: x["value"].startswith(initial_model), options))
     else:
+        # add an empty option if the user has no previously selected model.
         options.append(
             {
                 "text": {"type": "plain_text", "text": " ", "emoji": True},
                 "value": "null",
             }
         )
+
     try:
         client.views_publish(
             user_id=event["user"],

@@ -9,7 +9,7 @@ def set_user_selection(logger: Logger, ack: Ack, body: dict):
         user_id = body["user"]["id"]
         value = body["actions"][0]["selected_option"]["value"]
         if value != "null":
-            # explain how and why parsing action body
+            # parsing the selected option value from the options array in app_home_opened.py
             selected_api, selected_model = value.split(" ")[-1], value.split(" ")[0]
             set_user_state(user_id, selected_api, selected_model)
         else:
