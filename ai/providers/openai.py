@@ -12,7 +12,6 @@ class OpenAI_API(BaseProvider):
         "gpt-4o-mini": {"name": "GPT-4o mini", "api": "OpenAI", "max_tokens": 16384},
         "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "api": "OpenAI", "max_tokens": 4096},
     }
-    API_NAME = "OpenAI"
 
     def __init__(self):
         self.api_key = os.environ.get("OPENAI_API_KEY")
