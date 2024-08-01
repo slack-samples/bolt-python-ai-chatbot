@@ -8,6 +8,7 @@ This Slack chatbot app template offers a customizable solution for integrating A
 * Utilize a custom function for integration with Workflow Builder to summarize messages in conversations
 * Select your preferred API/model from the app home to customize the bot's responses
 * Bring Your Own Language Model [BYO LLM](#byo-llm) for customization
+* Custom FileStateStore creates a file in /data per user to store API/model preferences
 
 Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/main)
 
