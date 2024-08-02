@@ -1,13 +1,14 @@
+# A base class for API providers, defining the interface and common properties for subclasses.
+
+
 class BaseProvider:
     MODELS = {}
-    BASELINE_MAX_TOKENS: int
-    API_NAME: str
 
     def __init__(self):
-        self.current_model = None
         self.api_key: str
 
     def set_model(self, model_name: str):
+        self.current_model = model_name
         raise NotImplementedError("Subclass must implement set_model")
 
     def get_models(self):

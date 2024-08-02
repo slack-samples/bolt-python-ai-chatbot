@@ -2,7 +2,10 @@ from ai.providers.anthropic import AnthropicAPI
 from ai.providers.openai import OpenAI_API
 
 """
-New providers need to be added below
+This file defines a function to retrieve available API models from different AI providers.
+It imports specific AI provider classes and combines their available models into a single dictionary.
+
+New AI providers must be added below
 """
 
 

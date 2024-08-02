@@ -28,7 +28,7 @@ class AnthropicAPI(BaseProvider):
         if self.api_key is not None:
             return self.MODELS
         else:
-            return None
+            return {}
 
     def generate_response(self, prompt: str, system_content: str) -> str:
         try:

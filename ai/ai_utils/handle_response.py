@@ -5,7 +5,11 @@ from logging import Logger
 from state_store.get_user_state import get_user_state
 
 """
-New providers need to be added below
+This file defines functions to handle AI responses by interacting with different AI providers.
+The `_get_provider()` function returns an instance of the appropriate API provider based on the given API name. 
+The `get_ai_response` function retrieves the user's selected API provider and model, sets the model, and generates a response.
+
+New AI providers must be added below
 """
 
 
