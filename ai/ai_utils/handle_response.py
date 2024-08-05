@@ -20,9 +20,10 @@ def _get_provider(api_name: str):
         return AnthropicAPI()
 
 
-def get_ai_response(user_id: str, prompt: str, context="", system_content=DEFAULT_SYSTEM_CONTENT):
+def get_ai_response(user_id: str, prompt: str, context: list = [], system_content=DEFAULT_SYSTEM_CONTENT):
     try:
-        full_prompt = f"{prompt} {context}"
+        formatted_context = "\n".join([f"{msg['user']}: {msg['text']}" for msg in context])
+        full_prompt = f"Prompt: {prompt}\nContext: {formatted_context}"
         api_name, model_name = get_user_state(user_id)
         provider = _get_provider(api_name)
         provider.set_model(model_name)
