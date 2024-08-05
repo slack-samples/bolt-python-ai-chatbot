@@ -38,7 +38,6 @@ def app_home_opened_callback(event, logger: Logger, client: WebClient, context: 
     try:
         client.views_publish(
             user_id=event["user"],
-            view_id=context["enterprise_id"],
             view={
                 "type": "home",
                 "blocks": [
