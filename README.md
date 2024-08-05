@@ -88,7 +88,7 @@ This module is responsible for handling interactions with the APIs and processin
 * `handle_response.py`: Processes responses from API providers.
 <a name="byo-llm"></a>
 #### `ai/providers`
-This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_provider.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
 
 ## App Distribution / OAuth
 
