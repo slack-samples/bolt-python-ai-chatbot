@@ -1,10 +1,11 @@
 from logging import Logger
 from ai.ai_utils.get_available_apis import get_available_apis
+from slack_bolt import BoltContext
 from slack_sdk import WebClient
 from state_store.get_user_state import get_user_state
 
 
-def app_home_opened_callback(event, logger: Logger, client: WebClient):
+def app_home_opened_callback(event, logger: Logger, client: WebClient, context: BoltContext):
     if event["tab"] != "home":
         return
 
@@ -37,7 +38,7 @@ def app_home_opened_callback(event, logger: Logger, client: WebClient):
     try:
         client.views_publish(
             user_id=event["user"],
-            view_id=event["view"]["id"],
+            view_id=context["enterprise_id"],
             view={
                 "type": "home",
                 "blocks": [
