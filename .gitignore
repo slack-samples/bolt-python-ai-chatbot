@@ -36,5 +36,6 @@ tmp.txt
 logs/
 *.db
 .pytype/
-data/*.json
+data/*
+!data/.gitkeep
 .slack/
