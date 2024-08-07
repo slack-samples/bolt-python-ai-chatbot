@@ -29,8 +29,8 @@ def app_mentioned_callback(client: WebClient, event, logger: Logger, say: Say):
             client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=response)
         else:
             response = MENTION_WITHOUT_TEXT
-            say(text=response, thread_ts=thread_ts)
+            client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=response)
 
     except Exception as e:
         logger.error(e)
-        say(text=f"Received an error from Bolty: {e}")
+        client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=f"Received an error from Bolty: {e}")
