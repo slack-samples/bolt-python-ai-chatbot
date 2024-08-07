@@ -1,19 +1,19 @@
-from .base_provider import BaseProvider
+from .base_provider import BaseAPIProvider
 import anthropic
 import os
 from logging import Logger
 
 
-class AnthropicAPI(BaseProvider):
+class AnthropicAPI(BaseAPIProvider):
     MODELS = {
         "claude-3-5-sonnet-20240620": {
             "name": "Claude 3.5 Sonnet",
-            "api": "Anthropic",
+            "provider": "Anthropic",
             "max_tokens": 4096,  # or 8192 with the header anthropic-beta: max-tokens-3-5-sonnet-2024-07-15
         },
-        "claude-3-sonnet-20240229": {"name": "Claude 3 Sonnet", "api": "Anthropic", "max_tokens": 4096},
-        "claude-3-haiku-20240307": {"name": "Claude 3 Haiku", "api": "Anthropic", "max_tokens": 4096},
-        "claude-3-opus-20240229": {"name": "Claude 3 Opus", "api": "Anthropic", "max_tokens": 4096},
+        "claude-3-sonnet-20240229": {"name": "Claude 3 Sonnet", "provider": "Anthropic", "max_tokens": 4096},
+        "claude-3-haiku-20240307": {"name": "Claude 3 Haiku", "provider": "Anthropic", "max_tokens": 4096},
+        "claude-3-opus-20240229": {"name": "Claude 3 Opus", "provider": "Anthropic", "max_tokens": 4096},
     }
 
     def __init__(self):
@@ -24,7 +24,7 @@ class AnthropicAPI(BaseProvider):
             raise ValueError("Invalid model")
         self.current_model = model_name
 
-    def get_models(self):
+    def get_models(self) -> dict:
         if self.api_key is not None:
             return self.MODELS
         else:

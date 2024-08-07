@@ -1,16 +1,16 @@
 import openai
-from .base_provider import BaseProvider
+from .base_provider import BaseAPIProvider
 import os
 from logging import Logger
 
 
-class OpenAI_API(BaseProvider):
+class OpenAI_API(BaseAPIProvider):
     MODELS = {
-        "gpt-4-turbo": {"name": "GPT-4 Turbo", "api": "OpenAI", "max_tokens": 4096},
-        "gpt-4": {"name": "GPT-4", "api": "OpenAI", "max_tokens": 4096},
-        "gpt-4o": {"name": "GPT-4o", "api": "OpenAI", "max_tokens": 4096},
-        "gpt-4o-mini": {"name": "GPT-4o mini", "api": "OpenAI", "max_tokens": 16384},
-        "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "api": "OpenAI", "max_tokens": 4096},
+        "gpt-4-turbo": {"name": "GPT-4 Turbo", "provider": "OpenAI", "max_tokens": 4096},
+        "gpt-4": {"name": "GPT-4", "provider": "OpenAI", "max_tokens": 4096},
+        "gpt-4o": {"name": "GPT-4o", "provider": "OpenAI", "max_tokens": 4096},
+        "gpt-4o-mini": {"name": "GPT-4o mini", "provider": "OpenAI", "max_tokens": 16384},
+        "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "provider": "OpenAI", "max_tokens": 4096},
     }
 
     def __init__(self):
@@ -21,7 +21,7 @@ class OpenAI_API(BaseProvider):
             raise ValueError("Invalid model")
         self.current_model = model_name
 
-    def get_models(self):
+    def get_models(self) -> dict:
         if self.api_key is not None:
             return self.MODELS
         else:

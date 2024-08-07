@@ -11,6 +11,6 @@ def get_user_state(user_id: str):
     try:
         with open(filepath, "r") as file:
             user_identity: UserIdentity = json.load(file)
-            return user_identity["api"], user_identity["model"]
+            return user_identity["provider"], user_identity["model"]
     except Exception as e:
         Logger.error(e)

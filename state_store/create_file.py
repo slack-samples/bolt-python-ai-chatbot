@@ -1,4 +1,4 @@
-from .state_store import StateStore
+from .state_store import UserStateStore
 from .user_identity import UserIdentity
 import logging
 from pathlib import Path
@@ -6,7 +6,7 @@ import json
 import os
 
 
-class FileStateStore(StateStore):
+class FileStateStore(UserStateStore):
     def __init__(
         self,
         *,

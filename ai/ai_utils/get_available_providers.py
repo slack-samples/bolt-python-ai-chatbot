@@ -9,5 +9,5 @@ New AI providers must be added below
 """
 
 
-def get_available_apis():
+def get_available_providers():
     return {**AnthropicAPI().get_models(), **OpenAI_API().get_models()}

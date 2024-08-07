@@ -1,108 +1,109 @@
 {
-  "_metadata": {
-      "major_version": 1,
-      "minor_version": 1
-  },
-  "display_information": {
-      "name": "Bolty"
-  },
-  "features": {
-      "app_home": {
-          "home_tab_enabled": true,
-          "messages_tab_enabled": true,
-          "messages_tab_read_only_enabled": false
-      },
-      "bot_user": {
-          "display_name": "Bolty",
-          "always_online": true
-      },
-      "slash_commands": [
-          {
-              "command": "/ask",
-              "description": "Ask Bolty a question",
-              "should_escape": false
-          }
-      ]
-  },
-  "oauth_config": {
-      "scopes": {
-          "bot": [
-            "commands",
-            "app_mentions:read",
-            "channels:read",
-            "groups:read",
-            "mpim:read",
-            "im:read",
-            "channels:history",
-            "groups:history",
-            "im:history",
-            "mpim:history",
-            "chat:write.public",
-            "chat:write",
-            "users:read",
-            "im:write",
-            "mpim:write"
-          ]
-      }
-  },
-  "functions": {
-    "summary_function": {
-      "title": "Bolty Custom Function",
-      "description": "Interact with an AI Chatbot",
-      "input_parameters": {
-        "user_context": {
-          "type": "slack#/types/user_context",
-          "title": "User",
-          "description": "Tag the user that will be notified when bot responds",
-          "hint": "Tag user who ran the workflow",
-          "name": "user_context",
-          "is_required": true
+    "_metadata": {
+        "major_version": 1,
+        "minor_version": 1
+    },
+    "display_information": {
+        "name": "Bolty"
+    },
+    "features": {
+        "app_home": {
+            "home_tab_enabled": true,
+            "messages_tab_enabled": true,
+            "messages_tab_read_only_enabled": false
         },
-        "channel_id":{
-            "type":"slack#/types/channel_id",
-            "title":"Channel",
-            "description":"Channel that user joined",
-            "hint": "Input channel that user joined",
-            "name":"channel_id",
-            "is_required": true
-        }
+        "bot_user": {
+            "display_name": "Bolty",
+            "always_online": true
         },
-        "output_parameters": {
-            "user_context": {
-                "type": "slack#/types/user_context",
-                "title": "User",
-                "description": "User that completed the workflow",
-                "name": "user_context",
-                "is_required": true
-            }, 
-            "response": {
-                "type": "string",
-                "title": "Summary",
-                "description": "AI-generated summary of recent messages in channel",
-                "name": "response",
-                "is_required": true
+        "slash_commands": [
+            {
+                "command": "/ask-bolty",
+                "description": "Interact with Bolty.",
+                "should_escape": false
             }
+        ]
+    },
+    "oauth_config": {
+        "scopes": {
+            "bot": [
+              "commands",
+              "app_mentions:read",
+              "channels:read",
+              "groups:read",
+              "mpim:read",
+              "im:read",
+              "channels:history",
+              "groups:history",
+              "im:history",
+              "mpim:history",
+              "chat:write.public",
+              "chat:write",
+              "users:read",
+              "im:write",
+              "mpim:write"
+            ]
         }
+    },
+    "functions": {
+      "summary_function": {
+        "title": "Bolty Custom Function",
+        "description": "Interact with an AI Chatbot. Bolty must be a channel member.",
+        "input_parameters": {
+          "user_context": {
+            "type": "slack#/types/user_context",
+            "title": "User",
+            "description": "Tag the user that will be notified when bot responds",
+            "hint": "Tag user who ran the workflow",
+            "name": "user_context",
+            "is_required": true
+          },
+          "channel_id":{
+              "type":"slack#/types/channel_id",
+              "title":"Channel",
+              "description":"Channel that user joined",
+              "hint": "Input channel that user joined",
+              "name":"channel_id",
+              "is_required": true
+          }
+          },
+          "output_parameters": {
+              "user_context": {
+                  "type": "slack#/types/user_context",
+                  "title": "User",
+                  "description": "User that completed the workflow",
+                  "name": "user_context",
+                  "is_required": true
+              }, 
+              "response": {
+                  "type": "string",
+                  "title": "Summary",
+                  "description": "AI-generated summary of recent messages in channel",
+                  "name": "response",
+                  "is_required": true
+              }
+          }
+      }
+    },
+    "settings": {
+        "event_subscriptions": {
+            "bot_events": [
+                "app_home_opened",
+                "app_mention",
+                "message.channels",
+                "message.groups",
+                "message.im",
+                "message.mpim",
+                "function_executed"
+            ]
+        },
+        "interactivity": {
+            "is_enabled": true
+        },
+        "org_deploy_enabled": true,
+        "socket_mode_enabled": true,
+        "token_rotation_enabled": false,
+        "function_runtime": "remote"
     }
-  },
-  "settings": {
-      "event_subscriptions": {
-          "bot_events": [
-              "app_home_opened",
-              "app_mention",
-              "message.channels",
-              "message.groups",
-              "message.im",
-              "message.mpim",
-              "function_executed"
-          ]
-      },
-      "interactivity": {
-          "is_enabled": true
-      },
-      "org_deploy_enabled": true,
-      "socket_mode_enabled": true,
-      "token_rotation_enabled": false,
-      "function_runtime": "remote"
   }
-}
+  

@@ -1,7 +1,7 @@
 from .user_identity import UserIdentity
 
 
-class StateStore:
+class UserStateStore:
     def set_state(user_identity: UserIdentity):
         raise NotImplementedError()
 

@@ -1,6 +1,6 @@
 from slack_bolt import Ack, Say, BoltContext
 from logging import Logger
-from ai.ai_utils.handle_response import get_ai_response
+from ai.ai_utils.handle_response import get_provider_response
 
 
 def ask_callback(ack: Ack, command, say: Say, logger: Logger, context: BoltContext):
@@ -11,6 +11,7 @@ def ask_callback(ack: Ack, command, say: Say, logger: Logger, context: BoltConte
         if prompt == "":
             say(text="Please provide a question.")
         else:
-            say(text=get_ai_response(user_id, prompt))
+            say(text=get_provider_response(user_id, prompt))
     except Exception as e:
         logger.error(e)
+        say(text=f"Received an error from Bolty: {e}")

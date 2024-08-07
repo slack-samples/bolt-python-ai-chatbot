@@ -1,21 +1,21 @@
 from logging import Logger
-from ai.ai_utils.get_available_apis import get_available_apis
+from ai.ai_utils.get_available_providers import get_available_providers
 from slack_bolt import BoltContext
 from slack_sdk import WebClient
 from state_store.get_user_state import get_user_state
 
 
-def app_home_opened_callback(event, logger: Logger, client: WebClient, context: BoltContext):
+def app_home_opened_callback(event: dict, logger: Logger, client: WebClient, context: BoltContext):
     if event["tab"] != "home":
         return
 
-    # create a list of options for the dropdown menu each containing the model name and API
+    # create a list of options for the dropdown menu each containing the model name and provider
     options = [
         {
-            "text": {"type": "plain_text", "text": f"{model_info['name']} ({model_info['api']})", "emoji": True},
-            "value": f"{model_name} {model_info['api'].lower()}",
+            "text": {"type": "plain_text", "text": f"{model_info['name']} ({model_info['provider']})", "emoji": True},
+            "value": f"{model_name} {model_info['provider'].lower()}",
         }
-        for model_name, model_info in get_available_apis().items()
+        for model_name, model_info in get_available_providers().items()
     ]
 
     # retrieve user's state to determine if they already have a selected model
@@ -51,7 +51,7 @@ def app_home_opened_callback(event, logger: Logger, client: WebClient, context: 
                         "elements": [
                             {
                                 "type": "rich_text_section",
-                                "elements": [{"type": "text", "text": "Select an API", "style": {"bold": True}}],
+                                "elements": [{"type": "text", "text": "Select a provider", "style": {"bold": True}}],
                             }
                         ],
                     },
@@ -62,7 +62,7 @@ def app_home_opened_callback(event, logger: Logger, client: WebClient, context: 
                                 "type": "static_select",
                                 "initial_option": initial_option[0] if initial_option else options[-1],
                                 "options": options,
-                                "action_id": "pick_an_api",
+                                "action_id": "pick_a_provider",
                             }
                         ],
                     },

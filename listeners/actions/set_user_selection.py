@@ -10,8 +10,8 @@ def set_user_selection(logger: Logger, ack: Ack, body: dict):
         value = body["actions"][0]["selected_option"]["value"]
         if value != "null":
             # parsing the selected option value from the options array in app_home_opened.py
-            selected_api, selected_model = value.split(" ")[-1], value.split(" ")[0]
-            set_user_state(user_id, selected_api, selected_model)
+            selected_provider, selected_model = value.split(" ")[-1], value.split(" ")[0]
+            set_user_state(user_id, selected_provider, selected_model)
         else:
             raise ValueError("Please make a selection")
     except Exception as e:

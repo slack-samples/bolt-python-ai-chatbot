@@ -1,4 +1,4 @@
-from ai.ai_utils.handle_response import get_ai_response
+from ai.ai_utils.handle_response import get_provider_response
 from logging import Logger
 from slack_bolt import Complete, Fail, Ack
 from slack_sdk import WebClient
@@ -16,10 +16,10 @@ def handle_summary_function_callback(
     try:
         user_context = inputs["user_context"]
         channel_id = inputs["channel_id"]
-        history = client.conversations_history(channel=channel_id, limit=20)["messages"]
+        history = client.conversations_history(channel=channel_id, limit=10)["messages"]
         conversation = parse_conversation(history)
 
-        summary = get_ai_response(user_context["id"], SUMMARIZE_CHANNEL_WORKFLOW, conversation)
+        summary = get_provider_response(user_context["id"], SUMMARIZE_CHANNEL_WORKFLOW, conversation)
 
         complete({"user_context": user_context, "response": summary})
     except Exception as e:

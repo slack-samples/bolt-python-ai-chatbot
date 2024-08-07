@@ -1,5 +1,5 @@
 from ai.ai_utils.ai_constants import DM_SYSTEM_CONTENT
-from ai.ai_utils.handle_response import get_ai_response
+from ai.ai_utils.handle_response import get_provider_response
 from logging import Logger
 from slack_bolt import Say
 from slack_sdk import WebClient
@@ -16,15 +16,16 @@ def dm_sent_callback(client: WebClient, event, logger: Logger, say: Say):
     text = event.get("text")
 
     try:
-        if channel_id[0] == "D":
+        if event.get("channel_type") == "im":
             conversation_context = ""
 
             if thread_ts:  # Retrieves context to continue the conversation in a thread.
-                conversation = client.conversations_replies(channel=channel_id, limit=20, ts=thread_ts)["messages"]
+                conversation = client.conversations_replies(channel=channel_id, limit=10, ts=thread_ts)["messages"]
                 conversation_context = parse_conversation(conversation)
 
             waiting_message = say(text=DEFAULT_LOADING_TEXT, thread_ts=thread_ts)
-            response = get_ai_response(user_id, text, conversation_context, DM_SYSTEM_CONTENT)
+            response = get_provider_response(user_id, text, conversation_context, DM_SYSTEM_CONTENT)
             client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=response)
     except Exception as e:
         logger.error(e)
+        say(text=f"Received an error from Bolty: {e}")
