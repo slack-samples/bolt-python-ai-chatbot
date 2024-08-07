@@ -3,4 +3,4 @@ from .ask_command import ask_callback
 
 
 def register(app: App):
-    app.command("/ask")(ask_callback)
+    app.command("/ask-bolty")(ask_callback)

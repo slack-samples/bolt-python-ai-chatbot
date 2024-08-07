@@ -4,7 +4,7 @@ This Slack chatbot app template offers a customizable solution for integrating A
 
 * Interact with the bot by mentioning it in conversations and threads
 * Send direct messages to the bot for private interactions
-* Use the `/ask` command to communicate with the bot in channels where it hasn't been added
+* Use the `/ask-bolty` command to communicate with the bot in channels where it hasn't been added
 * Utilize a custom function for integration with Workflow Builder to summarize messages in conversations
 * Select your preferred API/model from the app home to customize the bot's responses
 * Bring Your Own Language Model [BYO LLM](#byo-llm) for customization
