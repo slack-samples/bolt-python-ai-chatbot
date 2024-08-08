@@ -42,9 +42,13 @@ class AnthropicAPI(BaseAPIProvider):
             return response.content[0].text
         except anthropic.APIConnectionError as e:
             Logger.error(f"Server could not be reached: {e.__cause__}")
+            raise e
         except anthropic.RateLimitError as e:
             Logger.error(f"A 429 status code was received. Your account has hit a rate limit. {e}")
+            raise e
         except anthropic.AuthenticationError as e:
             Logger.error(f"There's an issue with your API key. {e}")
+            raise e
         except anthropic.APIStatusError as e:
             Logger.error(f"Another non-200-range status code was received: {e.status_code}")
+            raise e

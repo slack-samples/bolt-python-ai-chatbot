@@ -4,23 +4,11 @@ from ai.providers.anthropic import AnthropicAPI
 from logging import Logger
 from state_store.get_user_state import get_user_state
 from typing import Optional, List
-
+from ..providers import _get_provider
 """
-This file defines functions to handle AI responses by interacting with different AI providers.
-The `_get_provider()` function returns an instance of the appropriate API provider based on the given provider name.
-The `get_provider_response` function retrieves the user's selected API provider and model,
+This file defines the `get_provider_response` function which retrieves the user's selected API provider and model,
 sets the model, and generates a response.
-
-New AI providers must be added below
 """
-
-
-def _get_provider(provider_name: str):
-    if provider_name.lower() == "openai":
-        return OpenAI_API()
-    if provider_name.lower() == "anthropic":
-        return AnthropicAPI()
-
 
 def get_provider_response(user_id: str, prompt: str, context: Optional[List] = None, system_content=DEFAULT_SYSTEM_CONTENT):
     try:
