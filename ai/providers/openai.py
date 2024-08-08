@@ -15,6 +15,7 @@ class OpenAI_API(BaseAPIProvider):
 
     def __init__(self):
         self.api_key = os.environ.get("OPENAI_API_KEY")
+        self.client = openai.OpenAI(api_key=self.api_key)
 
     def set_model(self, model_name: str):
         if model_name not in self.MODELS.keys():
@@ -29,8 +30,7 @@ class OpenAI_API(BaseAPIProvider):
 
     def generate_response(self, prompt: str, system_content: str) -> str:
         try:
-            client = openai.OpenAI(api_key=self.api_key)
-            response = client.chat.completions.create(
+            response = self.client.chat.completions.create(
                 model=self.current_model,
                 n=1,
                 messages=[{"role": "system", "content": system_content}, {"role": "user", "content": prompt}],

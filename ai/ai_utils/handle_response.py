@@ -5,10 +5,12 @@ from logging import Logger
 from state_store.get_user_state import get_user_state
 from typing import Optional, List
 from ..providers import _get_provider
+
 """
 This file defines the `get_provider_response` function which retrieves the user's selected API provider and model,
 sets the model, and generates a response.
 """
+
 
 def get_provider_response(user_id: str, prompt: str, context: Optional[List] = None, system_content=DEFAULT_SYSTEM_CONTENT):
     try:
