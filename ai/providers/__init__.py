@@ -1,25 +1,24 @@
 from .anthropic import AnthropicAPI
 from .openai import OpenAI_API
 from ..ai_constants import DEFAULT_SYSTEM_CONTENT
-from logging import Logger
 from state_store.get_user_state import get_user_state
 from typing import Optional, List
 
 """
-New AI providers must be added below
+New AI providers must be added below.
 
 `get_available_providers()`
 This function retrieves available API models from different AI providers.
 It combines the available models into a single dictionary.
 
-`_get_provider()` 
+`_get_provider()`
 This function returns an instance of the appropriate API provider based on the given provider name.
 
 `get_provider_response`()
 This function retrieves the user's selected API provider and model,
 sets the model, and generates a response.
-Note that context is an optional parameter because some functionalities, 
-such as commands, do not allow access to conversation history if the bot 
+Note that context is an optional parameter because some functionalities,
+such as commands, do not allow access to conversation history if the bot
 isn't in the channel where the command is run.
 
 """
