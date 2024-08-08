@@ -8,7 +8,7 @@ from ..listener_utils.parse_conversation import parse_conversation
 
 # Handles the event when the app is mentioned in a Slack channel, retrieves the conversation context,
 # and generates an AI response if text is provided, otherwise sends a default response
-def app_mentioned_callback(client: WebClient, event, logger: Logger, say: Say):
+def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: Say):
     try:
         channel_id = event.get("channel")
         thread_ts = event.get("thread_ts")
@@ -21,7 +21,7 @@ def app_mentioned_callback(client: WebClient, event, logger: Logger, say: Say):
             conversation = client.conversations_history(channel=channel_id, limit=10)["messages"]
             thread_ts = event["ts"]
 
-        conversation_context = parse_conversation(conversation)
+        conversation_context = parse_conversation(conversation[:-1])
 
         if text:
             waiting_message = say(text=DEFAULT_LOADING_TEXT, thread_ts=thread_ts)

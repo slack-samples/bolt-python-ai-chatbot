@@ -9,7 +9,7 @@ from ..listener_utils.parse_conversation import parse_conversation
 
 # Handles the event when a direct message is sent to the bot, retrieves the conversation context,
 # and generates an AI response.
-def dm_sent_callback(client: WebClient, event, logger: Logger, say: Say):
+def dm_sent_callback(client: WebClient, event: dict, logger: Logger, say: Say):
     channel_id = event.get("channel")
     thread_ts = event.get("thread_ts")
     user_id = event.get("user")
@@ -21,7 +21,7 @@ def dm_sent_callback(client: WebClient, event, logger: Logger, say: Say):
 
             if thread_ts:  # Retrieves context to continue the conversation in a thread.
                 conversation = client.conversations_replies(channel=channel_id, limit=10, ts=thread_ts)["messages"]
-                conversation_context = parse_conversation(conversation)
+                conversation_context = parse_conversation(conversation[:-1])
 
             waiting_message = say(text=DEFAULT_LOADING_TEXT, thread_ts=thread_ts)
             response = get_provider_response(user_id, text, conversation_context, DM_SYSTEM_CONTENT)
