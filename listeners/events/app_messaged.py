@@ -1,15 +1,18 @@
-from ai.ai_utils.ai_constants import DM_SYSTEM_CONTENT
-from ai.ai_utils.handle_response import get_provider_response
+from ai.ai_constants import DM_SYSTEM_CONTENT
+from ai.providers import get_provider_response
 from logging import Logger
 from slack_bolt import Say
 from slack_sdk import WebClient
 from ..listener_utils.listener_constants import DEFAULT_LOADING_TEXT
 from ..listener_utils.parse_conversation import parse_conversation
 
+"""
+Handles the event when a direct message is sent to the bot, retrieves the conversation context,
+and generates an AI response.
+"""
 
-# Handles the event when a direct message is sent to the bot, retrieves the conversation context,
-# and generates an AI response.
-def dm_sent_callback(client: WebClient, event: dict, logger: Logger, say: Say):
+
+def app_messaged_callback(client: WebClient, event: dict, logger: Logger, say: Say):
     channel_id = event.get("channel")
     thread_ts = event.get("thread_ts")
     user_id = event.get("user")

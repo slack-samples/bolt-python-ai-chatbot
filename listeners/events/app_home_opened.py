@@ -1,11 +1,13 @@
 from logging import Logger
-from ai.ai_utils.get_available_providers import get_available_providers
+from ai.providers import get_available_providers
 from slack_sdk import WebClient
 from state_store.get_user_state import get_user_state
 
-# Callback for handling the 'app_home_opened' event. It checks if the event is for the 'home' tab,
-# generates a list of model options for a dropdown menu, retrieves the user's state to set the initial option,
-# and publishes a view to the user's home tab in Slack.
+"""
+Callback for handling the 'app_home_opened' event. It checks if the event is for the 'home' tab,
+generates a list of model options for a dropdown menu, retrieves the user's state to set the initial option,
+and publishes a view to the user's home tab in Slack.
+"""
 
 
 def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):

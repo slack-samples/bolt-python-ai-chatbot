@@ -73,9 +73,11 @@ black .
 
 `manifest.json` is a configuration for Slack apps. With a manifest, you can create an app with a pre-defined configuration, or adjust the configuration of an existing app.
 
+
 ### `app.py`
 
 `app.py` is the entry point for the application and is the file you'll run to start the server. This project aims to keep this file as thin as possible, primarily using it as a way to route inbound requests.
+
 
 ### `/listeners`
 
@@ -83,15 +85,14 @@ Every incoming request is routed to a "listener". Inside this directory, we grou
 
 ### `/ai`
 
-#### `ai/ai_utils`
-This module is responsible for handling interactions with the APIs and processing their responses. It is composed of several files:
-
 * `ai_constants.py`: Defines constants used throughout the AI module.
-* `get_available_apis.py`: Retrieves a list of available API models. When displaying the app home, this function is called to determine which APIs are eligible for selection based on whether their respective API keys have been set.
-* `handle_response.py`: Processes responses from API providers.
+
 <a name="byo-llm"></a>
 #### `ai/providers`
-This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_provider.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+
+* `__init__.py`: 
+This file contains utility functions for handling responses from the provider APIs and retreiving available providers. 
 
 ### `/state_store`
 

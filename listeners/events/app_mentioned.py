@@ -1,13 +1,16 @@
-from ai.ai_utils.handle_response import get_provider_response
+from ai.providers import get_provider_response
 from logging import Logger
 from slack_sdk import WebClient
 from slack_bolt import Say
 from ..listener_utils.listener_constants import DEFAULT_LOADING_TEXT, MENTION_WITHOUT_TEXT
 from ..listener_utils.parse_conversation import parse_conversation
 
+"""
+Handles the event when the app is mentioned in a Slack channel, retrieves the conversation context,
+and generates an AI response if text is provided, otherwise sends a default response
+"""
 
-# Handles the event when the app is mentioned in a Slack channel, retrieves the conversation context,
-# and generates an AI response if text is provided, otherwise sends a default response
+
 def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: Say):
     try:
         channel_id = event.get("channel")

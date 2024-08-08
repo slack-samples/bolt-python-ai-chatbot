@@ -1,9 +1,11 @@
 from slack_bolt import Ack, Say, BoltContext
 from logging import Logger
-from ai.ai_utils.handle_response import get_provider_response
+from ai.providers import get_provider_response
 
-# Callback for handling the 'ask-bolty' command. It acknowledges the command, retrieves the user's ID and prompt,
-# checks if the prompt is empty, and responds with either an error message or the provider's response.
+"""
+Callback for handling the 'ask-bolty' command. It acknowledges the command, retrieves the user's ID and prompt,
+checks if the prompt is empty, and responds with either an error message or the provider's response.
+"""
 
 
 def ask_callback(ack: Ack, command, say: Say, logger: Logger, context: BoltContext):
