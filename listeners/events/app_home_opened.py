@@ -30,7 +30,7 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient, con
         # add an empty option if the user has no previously selected model.
         options.append(
             {
-                "text": {"type": "plain_text", "text": " ", "emoji": True},
+                "text": {"type": "plain_text", "text": "Select a provider", "emoji": True},
                 "value": "null",
             }
         )

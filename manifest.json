@@ -27,74 +27,74 @@
     "oauth_config": {
         "scopes": {
             "bot": [
-              "commands",
-              "app_mentions:read",
-              "channels:read",
-              "groups:read",
-              "mpim:read",
-              "im:read",
-              "channels:history",
-              "groups:history",
-              "im:history",
-              "mpim:history",
-              "chat:write.public",
-              "chat:write",
-              "users:read",
-              "im:write",
-              "mpim:write"
+                "app_mentions:read",
+                "channels:history",
+                "channels:read",
+                "chat:write",
+                "chat:write.public",
+                "commands",
+                "groups:history",
+                "groups:read",
+                "im:history",
+                "im:read",
+                "im:write",
+                "mpim:history",
+                "mpim:read",
+                "mpim:write",
+                "users:read"
             ]
         }
     },
     "functions": {
-      "summary_function": {
-        "title": "Bolty Custom Function",
-        "description": "Interact with an AI Chatbot. Bolty must be a channel member.",
-        "input_parameters": {
-          "user_context": {
-            "type": "slack#/types/user_context",
-            "title": "User",
-            "description": "Tag the user that will be notified when bot responds",
-            "hint": "Tag user who ran the workflow",
-            "name": "user_context",
-            "is_required": true
-          },
-          "channel_id":{
-              "type":"slack#/types/channel_id",
-              "title":"Channel",
-              "description":"Channel that user joined",
-              "hint": "Input channel that user joined",
-              "name":"channel_id",
-              "is_required": true
-          }
-          },
-          "output_parameters": {
-              "user_context": {
-                  "type": "slack#/types/user_context",
-                  "title": "User",
-                  "description": "User that completed the workflow",
-                  "name": "user_context",
-                  "is_required": true
-              }, 
-              "response": {
-                  "type": "string",
-                  "title": "Summary",
-                  "description": "AI-generated summary of recent messages in channel",
-                  "name": "response",
-                  "is_required": true
-              }
-          }
-      }
+        "summary_function": {
+            "title": "Bolty Custom Function",
+            "description": "Interact with an AI Chatbot. Bolty must be a channel member.",
+            "input_parameters": {
+                "user_context": {
+                    "type": "slack#/types/user_context",
+                    "title": "User",
+                    "description": "Tag the user that will be notified when bot responds",
+                    "hint": "Tag user who ran the workflow",
+                    "name": "user_context",
+                    "is_required": true
+                },
+                "channel_id": {
+                    "type": "slack#/types/channel_id",
+                    "title": "Channel",
+                    "description": "Channel that user joined",
+                    "hint": "Input channel that user joined",
+                    "name": "channel_id",
+                    "is_required": true
+                }
+            },
+            "output_parameters": {
+                "user_context": {
+                    "type": "slack#/types/user_context",
+                    "title": "User",
+                    "description": "User that completed the workflow",
+                    "name": "user_context",
+                    "is_required": true
+                },
+                "response": {
+                    "type": "string",
+                    "title": "Summary",
+                    "description": "AI-generated summary of recent messages in channel",
+                    "name": "response",
+                    "is_required": true
+                }
+            }
+        }
     },
     "settings": {
         "event_subscriptions": {
             "bot_events": [
                 "app_home_opened",
                 "app_mention",
+                "function_executed",
                 "message.channels",
                 "message.groups",
                 "message.im",
-                "message.mpim",
-                "function_executed"
+                "message.mpim"
             ]
         },
         "interactivity": {
@@ -105,5 +105,4 @@
         "token_rotation_enabled": false,
         "function_runtime": "remote"
     }
-  }
-  
+}

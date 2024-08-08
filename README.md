@@ -90,6 +90,18 @@ This module is responsible for handling interactions with the APIs and processin
 #### `ai/providers`
 This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_provider.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
 
+### `/state_store`
+
+* `user_identity.py`: This file defines the UserIdentity class for creating user objects. Each object represents a user with the user_id, provider, and model attributes.
+
+* `user_state_store.py`: This file defines the base class for FileStateStore.
+
+* `file_state_store.py`: This file defines the FileStateStore class which handles the logic for creating and managing files for each user.
+
+* `set_user_state.py`: This file creates a user object and uses a FileStateStore to save the user's selected provider to a JSON file.
+
+* `get_user_state.py`: This file retrieves a users selected provider from the JSON file created with `set_user_state.py`.
+
 ## App Distribution / OAuth
 
 Only implement OAuth if you plan to distribute your application across multiple workspaces. A separate `app_oauth.py` file can be found with relevant OAuth settings.
