@@ -39,12 +39,12 @@ def _get_provider(provider_name: str):
 
 
 def get_provider_response(user_id: str, prompt: str, context: Optional[List] = [], system_content=DEFAULT_SYSTEM_CONTENT):
+    formatted_context = "\n".join([f"{msg['user']}: {msg['text']}" for msg in context])
+    full_prompt = f"Prompt: {prompt}\nContext: {formatted_context}"
     try:
-        formatted_context = "\n".join([f"{msg['user']}: {msg['text']}" for msg in context])
-        full_prompt = f"Prompt: {prompt}\nContext: {formatted_context}"
         provider_name, model_name = get_user_state(user_id)
         provider = _get_provider(provider_name)
         provider.set_model(model_name)
         return provider.generate_response(full_prompt, system_content)
     except Exception as e:
-        Logger.error(e)
+        return f"{e}"

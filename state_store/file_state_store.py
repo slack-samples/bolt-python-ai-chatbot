@@ -34,7 +34,7 @@ class FileStateStore(UserStateStore):
             return state
         except FileNotFoundError as e:
             self.logger.warning(f"Failed to find data for {user_identity} - {e}")
-            return None
+            raise e
 
     @staticmethod
     def _mkdir(path):

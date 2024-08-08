@@ -19,4 +19,4 @@ def ask_callback(ack: Ack, command, say: Say, logger: Logger, context: BoltConte
             say(text=get_provider_response(user_id, prompt))
     except Exception as e:
         logger.error(e)
-        say(text=f"Received an error from Bolty: {e}")
+        say(text=f"An unexpected error occured: {e}")
