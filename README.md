@@ -1,9 +1,22 @@
-# Bolt for Python Template App
+# Slack AI Chatbot
 
-This is a generic Bolt for Python template app used to build out Slack apps.
+This Slack chatbot app template offers a customizable solution for integrating AI-powered conversations into your Slack workspace. Here's what the app can do out of the box:
+
+* Interact with the bot by mentioning it in conversations and threads
+* Send direct messages to the bot for private interactions
+* Use the `/ask-bolty` command to communicate with the bot in channels where it hasn't been added
+* Utilize a custom function for integration with Workflow Builder to summarize messages in conversations
+* Select your preferred API/model from the app home to customize the bot's responses
+* Bring Your Own Language Model [BYO LLM](#byo-llm) for customization
+* Custom FileStateStore creates a file in /data per user to store API/model preferences
+
+Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/main)
 
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 ## Installation
+
+#### Prerequisites
+* To use the OpenAI and Anthropic models, you must have an account with sufficient credits.
 
 #### Create a Slack App
 1. Open [https://api.slack.com/apps/new](https://api.slack.com/apps/new) and choose "From an app manifest"
@@ -19,18 +32,20 @@ Before you can run the app, you'll need to store some environment variables.
 2. Click ***Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
 
 ```zsh
-# Replace with your app token and bot token
+# Run these commands in the terminal. Replace with your app token, bot token, and the token for whichever API(s) you plan on using 
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
+export OPENAI_API_KEY=<your-api-key>
+export ANTHROPIC_API_KEY=<your-api-key> 
 ```
 
 ### Setup Your Local Project
 ```zsh
 # Clone this project onto your machine
-git clone https://github.com/slack-samples/bolt-python-starter-template.git
+git clone https://github.com/slack-samples/bolt-python-ai-chatbot.git
 
 # Change into this project directory
-cd bolt-python-starter-template
+cd bolt-python-ai-chatbot
 
 # Setup your python virtual environment
 python3 -m venv .venv
@@ -58,13 +73,38 @@ black .
 
 `manifest.json` is a configuration for Slack apps. With a manifest, you can create an app with a pre-defined configuration, or adjust the configuration of an existing app.
 
+
 ### `app.py`
 
 `app.py` is the entry point for the application and is the file you'll run to start the server. This project aims to keep this file as thin as possible, primarily using it as a way to route inbound requests.
 
+
 ### `/listeners`
 
-Every incoming request is routed to a "listener". Inside this directory, we group each listener based on the Slack Platform feature used, so `/listeners/shortcuts` handles incoming [Shortcuts](https://api.slack.com/interactivity/shortcuts) requests, `/listeners/views` handles [View submissions](https://api.slack.com/reference/interaction-payloads/views#view_submission) and so on.
+Every incoming request is routed to a "listener". Inside this directory, we group each listener based on the Slack Platform feature used, so `/listeners/commands` handles incoming [Slash Commands](https://api.slack.com/interactivity/slash-commands) requests, `/listeners/events` handles [Events](https://api.slack.com/apis/events-api) and so on.
+
+### `/ai`
+
+* `ai_constants.py`: Defines constants used throughout the AI module.
+
+<a name="byo-llm"></a>
+#### `ai/providers`
+This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+
+* `__init__.py`: 
+This file contains utility functions for handling responses from the provider APIs and retreiving available providers. 
+
+### `/state_store`
+
+* `user_identity.py`: This file defines the UserIdentity class for creating user objects. Each object represents a user with the user_id, provider, and model attributes.
+
+* `user_state_store.py`: This file defines the base class for FileStateStore.
+
+* `file_state_store.py`: This file defines the FileStateStore class which handles the logic for creating and managing files for each user.
+
+* `set_user_state.py`: This file creates a user object and uses a FileStateStore to save the user's selected provider to a JSON file.
+
+* `get_user_state.py`: This file retrieves a users selected provider from the JSON file created with `set_user_state.py`.
 
 ## App Distribution / OAuth
 

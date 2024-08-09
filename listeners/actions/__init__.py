@@ -1,6 +1,6 @@
 from slack_bolt import App
-from .sample_action import sample_action_callback
+from .set_user_selection import set_user_selection
 
 
 def register(app: App):
-    app.action("sample_action_id")(sample_action_callback)
+    app.action("pick_a_provider")(set_user_selection)
