@@ -13,7 +13,7 @@ class OpenAI_API(BaseAPIProvider):
         "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "provider": "OpenAI", "max_tokens": 4096},
     }
 
-    def __init__(self): 
+    def __init__(self):
         self.api_key = os.environ.get("OPENAI_API_KEY")
 
     def set_model(self, model_name: str):
