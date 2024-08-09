@@ -18,7 +18,6 @@ class AnthropicAPI(BaseAPIProvider):
 
     def __init__(self):
         self.api_key = os.environ.get("ANTHROPIC_API_KEY")
-        self.client = anthropic.Anthropic(api_key=self.api_key)
 
     def set_model(self, model_name: str):
         if model_name not in self.MODELS.keys():
@@ -33,6 +32,7 @@ class AnthropicAPI(BaseAPIProvider):
 
     def generate_response(self, prompt: str, system_content: str) -> str:
         try:
+            self.client = anthropic.Anthropic(api_key=self.api_key)
             response = self.client.messages.create(
                 model=self.current_model,
                 system=system_content,
