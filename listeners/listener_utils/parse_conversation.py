@@ -1,6 +1,9 @@
-from logging import Logger
 from typing import Optional, List
 from slack_sdk.web.slack_response import SlackResponse
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger(__name__)
 
 """
 Parses a conversation history, excluding messages from the bot,
@@ -18,5 +21,5 @@ def parse_conversation(conversation: SlackResponse) -> Optional[List[dict]]:
             parsed.append({"user": user, "text": text})
         return parsed
     except Exception as e:
-        Logger.error(e)
+        logger.error(e)
         return None

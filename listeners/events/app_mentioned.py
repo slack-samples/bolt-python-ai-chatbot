@@ -36,4 +36,4 @@ def app_mentioned_callback(client: WebClient, event: dict, logger: Logger, say: 
 
     except Exception as e:
         logger.error(e)
-        client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=f"Received an error from Bolty: {e}")
+        client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=f"Received an error from Bolty:\n{e}")

@@ -40,6 +40,7 @@ def get_provider_response(user_id: str, prompt: str, context: Optional[List] = [
         provider_name, model_name = get_user_state(user_id, False)
         provider = _get_provider(provider_name)
         provider.set_model(model_name)
-        return provider.generate_response(full_prompt, system_content)
+        response = provider.generate_response(full_prompt, system_content)
+        return response
     except Exception as e:
-        return f"{e}"
+        raise e
