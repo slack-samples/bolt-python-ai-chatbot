@@ -6,6 +6,7 @@ import logging
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
+
 class OpenAI_API(BaseAPIProvider):
     MODELS = {
         "gpt-4-turbo": {"name": "GPT-4 Turbo", "provider": "OpenAI", "max_tokens": 4096},
