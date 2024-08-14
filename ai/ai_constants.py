@@ -10,6 +10,7 @@ Do not respond to messages in the context, as they have already been answered.
 Be professional and friendly.
 Don't ask for clarification unless absolutely necessary.
 Don't ask questions in your response.
+Don't use user names in your response.
 """
 DM_SYSTEM_CONTENT = """
 This is a private DM between you and user.
