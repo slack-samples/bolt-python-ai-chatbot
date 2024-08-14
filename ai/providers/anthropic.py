@@ -1,7 +1,10 @@
 from .base_provider import BaseAPIProvider
 import anthropic
 import os
-from logging import Logger
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger(__name__)
 
 
 class AnthropicAPI(BaseAPIProvider):
@@ -41,14 +44,14 @@ class AnthropicAPI(BaseAPIProvider):
             )
             return response.content[0].text
         except anthropic.APIConnectionError as e:
-            Logger.error(f"Server could not be reached: {e.__cause__}")
+            logger.error(f"Server could not be reached: {e.__cause__}")
             raise e
         except anthropic.RateLimitError as e:
-            Logger.error(f"A 429 status code was received. Your account has hit a rate limit. {e}")
+            logger.error(f"A 429 status code was received. {e}")
             raise e
         except anthropic.AuthenticationError as e:
-            Logger.error(f"There's an issue with your API key. {e}")
+            logger.error(f"There's an issue with your API key. {e}")
             raise e
         except anthropic.APIStatusError as e:
-            Logger.error(f"Another non-200-range status code was received: {e.status_code}")
+            logger.error(f"Another non-200-range status code was received: {e.status_code}")
             raise e

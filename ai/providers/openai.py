@@ -1,7 +1,10 @@
 import openai
 from .base_provider import BaseAPIProvider
 import os
-from logging import Logger
+import logging
+
+logging.basicConfig(level=logging.ERROR)
+logger = logging.getLogger(__name__)
 
 
 class OpenAI_API(BaseAPIProvider):
@@ -38,14 +41,14 @@ class OpenAI_API(BaseAPIProvider):
             )
             return response.choices[0].message.content
         except openai.APIConnectionError as e:
-            Logger.error(f"Server could not be reached: {e.__cause__}")
+            logger.error(f"Server could not be reached: {e.__cause__}")
             raise e
         except openai.RateLimitError as e:
-            Logger.error(f"A 429 status code was received. Your account has hit a rate limit. {e}")
+            logger.error(f"A 429 status code was received. {e}")
             raise e
         except openai.AuthenticationError as e:
-            Logger.error(f"There's an issue with your API key. {e}")
+            logger.error(f"There's an issue with your API key. {e}")
             raise e
         except openai.APIStatusError as e:
-            Logger.error(f"Another non-200-range status code was received: {e.status_code}")
+            logger.error(f"Another non-200-range status code was received: {e.status_code}")
             raise e

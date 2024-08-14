@@ -8,6 +8,7 @@ Hi there! You didn't provide a message with your mention.
 """
 SUMMARIZE_CHANNEL_WORKFLOW = """
 User has just joined this slack channel.
-Create a quick summary the most recent messages in this channel to cath up the user.
+Create a quick summary of the conversaton in this channel to cath up the user.
+Don't use user names in your response.
 """
 DEFAULT_LOADING_TEXT = "Thinking..."
