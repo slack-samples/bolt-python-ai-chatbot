@@ -56,7 +56,7 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                         "elements": [
                             {
                                 "type": "rich_text_section",
-                                "elements": [{"type": "text", "text": "Select a provider", "style": {"bold": True}}],
+                                "elements": [{"type": "text", "text": "Pick an option", "style": {"bold": True}}],
                             }
                         ],
                     },
