@@ -1,5 +1,6 @@
 from .anthropic import AnthropicAPI
 from .openai import OpenAI_API
+from .vertexai import VertexAPI
 from ..ai_constants import DEFAULT_SYSTEM_CONTENT
 from state_store.get_user_state import get_user_state
 from typing import Optional, List
@@ -21,7 +22,11 @@ isn't in the channel where the command is run.
 
 
 def get_available_providers():
-    return {**AnthropicAPI().get_models(), **OpenAI_API().get_models()}
+    return {
+        **AnthropicAPI().get_models(),
+        **OpenAI_API().get_models(),
+        **VertexAPI().get_models(),
+    }
 
 
 def _get_provider(provider_name: str):
@@ -29,6 +34,8 @@ def _get_provider(provider_name: str):
         return OpenAI_API()
     elif provider_name.lower() == "anthropic":
         return AnthropicAPI()
+    elif provider_name.lower() == "vertexai":
+        return VertexAPI()
     else:
         raise ValueError(f"Unknown provider: {provider_name}")
 

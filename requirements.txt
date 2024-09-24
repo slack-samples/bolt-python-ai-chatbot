@@ -5,3 +5,4 @@ black==24.8.0
 slack-cli-hooks==0.0.2
 openai==1.37.1
 anthropic==0.32.0
+google-cloud-aiplatform==1.67.1

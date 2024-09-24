@@ -36,7 +36,11 @@ Before you can run the app, you'll need to store some environment variables.
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 export OPENAI_API_KEY=<your-api-key>
-export ANTHROPIC_API_KEY=<your-api-key> 
+export ANTHROPIC_API_KEY=<your-api-key>
+# For vertex, follow the quickstart to set up a project to run models: https://cloud.google.com/python/docs/reference/aiplatform/latest/index.html#quick-start
+# If this is deployed into google cloud (app engine, cloud run etc) then this step is not needed.
+export VERTEX_AI_ENABLED=true
+gcloud auth application-default login 
 ```
 
 ### Setup Your Local Project
