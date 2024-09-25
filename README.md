@@ -17,6 +17,7 @@ Before getting started, make sure you have a development workspace where you hav
 
 #### Prerequisites
 * To use the OpenAI and Anthropic models, you must have an account with sufficient credits.
+* To use the Vertex models, you must have a [Google Cloud Provider project](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#expandable-1) with sufficient credits.
 
 #### Create a Slack App
 1. Open [https://api.slack.com/apps/new](https://api.slack.com/apps/new) and choose "From an app manifest"
@@ -102,10 +103,10 @@ Every incoming request is routed to a "listener". Inside this directory, we grou
 
 <a name="byo-llm"></a>
 #### `ai/providers`
-This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/), [OpenAI](https://openai.com/) and [Vertex AI](cloud.google.com/vertex-ai). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `ai/providers/__init__.py` to include and utilize your new class for API communication.
 
 * `__init__.py`: 
-This file contains utility functions for handling responses from the provider APIs and retreiving available providers. 
+This file contains utility functions for handling responses from the provider APIs and retrieving available providers. 
 
 ### `/state_store`
 
