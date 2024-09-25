@@ -37,11 +37,20 @@ export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 export OPENAI_API_KEY=<your-api-key>
 export ANTHROPIC_API_KEY=<your-api-key>
-# For vertex, follow the quickstart to set up a project to run models: https://cloud.google.com/python/docs/reference/aiplatform/latest/index.html#quick-start
-# If this is deployed into google cloud (app engine, cloud run etc) then this step is not needed.
-export VERTEX_AI_ENABLED=true
+```
+##### Google Cloud Vertex AI Setup
+
+For vertex, follow the [quick-start](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#expandable-1) to set up a project to run models.
+
+To set up credentials for local development, you can use `gcloud` to creade application-default credentials:
+
+```zsh
+export VERTEX_AI_PROJECT_ID=<your-project-id>
+export VERTEX_AI_LOCATION=<location-to-deploy-model>
 gcloud auth application-default login 
 ```
+
+If this is deployed into google cloud (app engine, cloud run etc) then running `gcloud` is not needed - but you will need to set `VERTEX_AI_PROJECT_ID`.
 
 ### Setup Your Local Project
 ```zsh
