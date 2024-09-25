@@ -60,8 +60,8 @@ class VertexAPI(BaseAPIProvider):
     }
 
     def __init__(self):
-        self.enabled = os.environ.get("VERTEX_AI_ENABLED", "").lower() in ["1", "true", "t", "yes", "y"]
-        vertexai.init(project=os.environ.get("GCP_PROJECT"), location=os.environ.get("GCP_LOCATION"))
+        self.enabled = bool(os.environ.get("VERTEX_AI_PROJECT_ID", ""))
+        vertexai.init(project=os.environ.get("VERTEX_AI_PROJECT_ID"), location=os.environ.get("VERTEX_AI_LOCATION"))
 
     def set_model(self, model_name: str):
         if model_name not in self.MODELS.keys():
