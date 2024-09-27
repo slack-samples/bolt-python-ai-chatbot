@@ -16,46 +16,55 @@ class VertexAPI(BaseAPIProvider):
             "name": "Gemini 1.5 Flash 001",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-1.5-flash-002": {
             "name": "Gemini 1.5 Flash 002",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-1.5-pro-002": {
             "name": "Gemini 1.5 Pro 002",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-1.5-pro-001": {
             "name": "Gemini 1.5 Pro 001",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-1.0-pro-002": {
             "name": "Gemini 1.0 Pro 002",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-1.0-pro-001": {
             "name": "Gemini 1.0 Pro 001",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": False,
         },
         "gemini-flash-experimental": {
             "name": "Gemini Flash Experimental",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-pro-experimental": {
             "name": "Gemini Pro Experimental",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
         "gemini-experimental": {
-            "name": "Gemini Pro Experimental",
+            "name": "Gemini Experimental",
             "provider": VERTEX_AI_PROVIDER,
             "max_tokens": 8192,
+            "system_instruction_supported": True,
         },
     }
 
@@ -80,12 +89,20 @@ class VertexAPI(BaseAPIProvider):
 
     def generate_response(self, prompt: str, system_content: str) -> str:
         try:
+            if self.MODELS[self.current_model]["system_instruction_supported"]:
+                kwargs = dict(
+                    system_instruction=system_content,
+                )
+            else:
+                kwargs = dict()
+                prompt = system_content + "\n" + prompt
+
             self.client = vertexai.generative_models.GenerativeModel(
                 model_name=self.current_model,
-                system_instruction=system_content,
                 generation_config={
                     "max_output_tokens": self.MODELS[self.current_model]["max_tokens"],
                 },
+                **kwargs,
             )
             response = self.client.generate_content(
                 contents=prompt,
@@ -99,7 +116,7 @@ class VertexAPI(BaseAPIProvider):
             logger.error(f"Client Forbidden. {e.reason}, {e.message}")
             raise e
         except google.api_core.exceptions.TooManyRequests as e:
-            logger.error(f"A 429 status code was received. {e.reason}, {e.message}")
+            logger.error(f"Too many requests. {e.reason}, {e.message}")
             raise e
         except google.api_core.exceptions.ClientError as e:
             logger.error(f"Client error: {e.reason}, {e.message}")
@@ -111,5 +128,5 @@ class VertexAPI(BaseAPIProvider):
             logger.error(f"Error: {e.reason}, {e.message}")
             raise e
         except google.api_core.exceptions.GoogleAPIError as e:
-            logger.error(f"Unknown error.")
+            logger.error(f"Unknown error. {e}")
             raise e
