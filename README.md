@@ -17,6 +17,7 @@ Before getting started, make sure you have a development workspace where you hav
 
 #### Prerequisites
 * To use the OpenAI and Anthropic models, you must have an account with sufficient credits.
+* To use the Vertex models, you must have [a Google Cloud Provider project](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#expandable-1) with sufficient credits.
 
 #### Create a Slack App
 1. Open [https://api.slack.com/apps/new](https://api.slack.com/apps/new) and choose "From an app manifest"
@@ -36,8 +37,21 @@ Before you can run the app, you'll need to store some environment variables.
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 export OPENAI_API_KEY=<your-api-key>
-export ANTHROPIC_API_KEY=<your-api-key> 
+export ANTHROPIC_API_KEY=<your-api-key>
 ```
+
+##### Google Cloud Vertex AI Setup
+
+To use Google Cloud Vertex AI, [follow this quick start](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#expandable-1) to create a project for sending requests to the Gemini API, then gather [Application Default Credentials](https://cloud.google.com/docs/authentication/provide-credentials-adc) with the strategy to match your development environment.
+
+Once your project and credentials are configured, export environment variables to select from Gemini models:
+
+```zsh
+export VERTEX_AI_PROJECT_ID=<your-project-id>
+export VERTEX_AI_LOCATION=<location-to-deploy-model>
+```
+
+The project location can be located under the **Region** on the [Vertex AI](https://console.cloud.google.com/vertex-ai) dashboard, as well as more details about available Gemini models.
 
 ### Setup Your Local Project
 ```zsh
@@ -89,10 +103,10 @@ Every incoming request is routed to a "listener". Inside this directory, we grou
 
 <a name="byo-llm"></a>
 #### `ai/providers`
-This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/) and [OpenAI](https://openai.com/). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `get_available_apis.py` and `handle_response.py` to include and utilize your new class for API communication.
+This module contains classes for communicating with different API providers, such as [Anthropic](https://www.anthropic.com/), [OpenAI](https://openai.com/), and [Vertex AI](cloud.google.com/vertex-ai). To add your own LLM, create a new class for it using the `base_api.py` as an example, then update `ai/providers/__init__.py` to include and utilize your new class for API communication.
 
 * `__init__.py`: 
-This file contains utility functions for handling responses from the provider APIs and retreiving available providers. 
+This file contains utility functions for handling responses from the provider APIs and retrieving available providers.
 
 ### `/state_store`
 
