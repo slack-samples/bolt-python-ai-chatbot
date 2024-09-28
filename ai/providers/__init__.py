@@ -1,9 +1,11 @@
+from typing import List, Optional
+
+from state_store.get_user_state import get_user_state
+
+from ..ai_constants import DEFAULT_SYSTEM_CONTENT
 from .anthropic import AnthropicAPI
 from .openai import OpenAI_API
 from .vertexai import VertexAPI
-from ..ai_constants import DEFAULT_SYSTEM_CONTENT
-from state_store.get_user_state import get_user_state
-from typing import Optional, List
 
 """
 New AI providers must be added below.
@@ -30,10 +32,10 @@ def get_available_providers():
 
 
 def _get_provider(provider_name: str):
-    if provider_name.lower() == "openai":
-        return OpenAI_API()
-    elif provider_name.lower() == "anthropic":
+    if provider_name.lower() == "anthropic":
         return AnthropicAPI()
+    elif provider_name.lower() == "openai":
+        return OpenAI_API()
     elif provider_name.lower() == "vertexai":
         return VertexAPI()
     else:
