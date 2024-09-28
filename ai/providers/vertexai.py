@@ -90,22 +90,19 @@ class VertexAPI(BaseAPIProvider):
 
     def generate_response(self, prompt: str, system_content: str) -> str:
         try:
+            system_instruction = None
             if self.MODELS[self.current_model]["system_instruction_supported"]:
-                self.client = vertexai.generative_models.GenerativeModel(
-                    model_name=self.current_model,
-                    generation_config={
-                        "max_output_tokens": self.MODELS[self.current_model]["max_tokens"],
-                    },
-                    system_instruction=system_content,
-                )
+                system_instruction = system_content
             else:
                 prompt = system_content + "\n" + prompt
-                self.client = vertexai.generative_models.GenerativeModel(
-                    model_name=self.current_model,
-                    generation_config={
-                        "max_output_tokens": self.MODELS[self.current_model]["max_tokens"],
-                    },
-                )
+
+            self.client = vertexai.generative_models.GenerativeModel(
+                model_name=self.current_model,
+                generation_config={
+                    "max_output_tokens": self.MODELS[self.current_model]["max_tokens"],
+                },
+                system_instruction=system_instruction,
+            )
             response = self.client.generate_content(
                 contents=prompt,
             )
