@@ -6,7 +6,7 @@ class BaseAPIProvider(object):
         raise NotImplementedError("Subclass must implement set_model")
 
     def get_models(self) -> dict:
-        raise NotImplementedError("Subclass must implement get_model")
+        raise NotImplementedError("Subclass must implement get_models")
 
     def generate_response(self, prompt: str, system_content: str) -> str:
         raise NotImplementedError("Subclass must implement generate_response")
