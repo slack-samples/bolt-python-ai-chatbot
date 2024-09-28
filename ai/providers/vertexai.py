@@ -96,7 +96,7 @@ class VertexAPI(BaseAPIProvider):
                     generation_config={
                         "max_output_tokens": self.MODELS[self.current_model]["max_tokens"],
                     },
-                    system_instruction=system_content
+                    system_instruction=system_content,
                 )
             else:
                 prompt = system_content + "\n" + prompt
