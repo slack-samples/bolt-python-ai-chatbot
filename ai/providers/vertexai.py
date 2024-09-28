@@ -89,13 +89,13 @@ class VertexAPI(BaseAPIProvider):
             return {}
 
     def generate_response(self, prompt: str, system_content: str) -> str:
-        try:
-            system_instruction = None
-            if self.MODELS[self.current_model]["system_instruction_supported"]:
-                system_instruction = system_content
-            else:
-                prompt = system_content + "\n" + prompt
+        system_instruction = None
+        if self.MODELS[self.current_model]["system_instruction_supported"]:
+            system_instruction = system_content
+        else:
+            prompt = system_content + "\n" + prompt
 
+        try:
             self.client = vertexai.generative_models.GenerativeModel(
                 model_name=self.current_model,
                 generation_config={
