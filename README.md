@@ -40,7 +40,7 @@ export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
 ```
 
-```ps
+```pwsh
 # Windows
 set SLACK_BOT_TOKEN=<your-bot-token>
 set SLACK_APP_TOKEN=<your-app-token>
