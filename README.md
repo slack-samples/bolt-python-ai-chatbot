@@ -30,13 +30,29 @@ Before getting started, make sure you have a development workspace where you hav
 Before you can run the app, you'll need to store some environment variables.
 
 1. Open your apps configuration page from this list, click **OAuth & Permissions** in the left hand menu, then copy the Bot User OAuth Token. You will store this in your environment as `SLACK_BOT_TOKEN`.
-2. Click ***Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
+2. Click **Basic Information** from the left hand menu and follow the steps in the App-Level Tokens section to create an app-level token with the `connections:write` scope. Copy this token. You will store this in your environment as `SLACK_APP_TOKEN`.
+
+Next, set the gathered tokens as environment variables using the following commands:
 
 ```zsh
-# Run these commands in the terminal. Replace with your app token, bot token, and the token for whichever API(s) you plan on using 
+# MacOS/Linux
 export SLACK_BOT_TOKEN=<your-bot-token>
 export SLACK_APP_TOKEN=<your-app-token>
-export OPENAI_API_KEY=<your-api-key>
+```
+
+```pwsh
+# Windows
+set SLACK_BOT_TOKEN=<your-bot-token>
+set SLACK_APP_TOKEN=<your-app-token>
+```
+
+Different models from different AI providers are available if the corresponding environment variable is added, as shown in the sections below.
+
+##### Anthropic Setup
+
+To interact with Anthropic models, navigate to your Anthropic account dashboard to [create an API key](https://console.anthropic.com/settings/keys), then export the key as follows:
+
+```zsh
 export ANTHROPIC_API_KEY=<your-api-key>
 ```
 
@@ -52,6 +68,14 @@ export VERTEX_AI_LOCATION=<location-to-deploy-model>
 ```
 
 The project location can be located under the **Region** on the [Vertex AI](https://console.cloud.google.com/vertex-ai) dashboard, as well as more details about available Gemini models.
+
+##### OpenAI Setup
+
+Unlock the OpenAI models from your OpenAI account dashboard by clicking [create a new secret key](https://platform.openai.com/api-keys), then export the key like so:
+
+```zsh
+export OPENAI_API_KEY=<your-api-key>
+```
 
 ### Setup Your Local Project
 ```zsh
