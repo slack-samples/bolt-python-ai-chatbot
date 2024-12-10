@@ -6,3 +6,5 @@ slack-cli-hooks==0.0.3
 openai==1.56.0
 anthropic==0.40.0
 google-cloud-aiplatform==1.73.0
+azure-ai-openai>=1.0.0
+azure-core>=1.29.5
