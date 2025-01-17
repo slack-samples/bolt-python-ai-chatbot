@@ -2,7 +2,7 @@ name: Formatting validation using black
 
 on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
 
 jobs:
@@ -11,19 +11,19 @@ jobs:
     timeout-minutes: 5
     strategy:
       matrix:
-        python-version: ['3.9']
-    
+        python-version: ["3.13"]
+
     steps:
-    - uses: actions/checkout@v4
-    - name: Set up Python ${{ matrix.python-version }}
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      run: |
-        pip install -U pip
-        pip install -r requirements.txt
-    - name: Format with black
-      run: |
-        black .
-        if git status --porcelain | grep .; then git --no-pager diff; exit 1; fi
+      - uses: actions/checkout@v4
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        run: |
+          pip install -U pip
+          pip install -r requirements.txt
+      - name: Format with black
+        run: |
+          black .
+          if git status --porcelain | grep .; then git --no-pager diff; exit 1; fi
