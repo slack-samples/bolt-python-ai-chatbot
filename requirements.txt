@@ -1,4 +1,4 @@
-slack-bolt==1.21.2
+slack-bolt==1.22.0
 pytest
 flake8==7.1.1
 black==24.10.0
