@@ -4,5 +4,5 @@ flake8==7.1.1
 black==24.10.0
 slack-cli-hooks==0.0.3
 openai==1.59.8
-anthropic==0.43.0
+anthropic==0.45.2
 google-cloud-aiplatform==1.77.0
