@@ -9,6 +9,6 @@ Hi there! You didn't provide a message with your mention.
 SUMMARIZE_CHANNEL_WORKFLOW = """
 A user has just joined this Slack channel.
 Please create a quick summary of the conversation in this channel to help them catch up.
-Don't use usernames in your response.
+Don't use user IDs or names in your response.
 """
 DEFAULT_LOADING_TEXT = "Thinking..."
