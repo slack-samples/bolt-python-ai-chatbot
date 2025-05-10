@@ -9,11 +9,10 @@ logger = logging.getLogger(__name__)
 
 class OpenAI_API(BaseAPIProvider):
     MODELS = {
-        "gpt-4-turbo": {"name": "GPT-4 Turbo", "provider": "OpenAI", "max_tokens": 4096},
-        "gpt-4": {"name": "GPT-4", "provider": "OpenAI", "max_tokens": 4096},
-        "gpt-4o": {"name": "GPT-4o", "provider": "OpenAI", "max_tokens": 4096},
-        "gpt-4o-mini": {"name": "GPT-4o mini", "provider": "OpenAI", "max_tokens": 16384},
-        "gpt-3.5-turbo-0125": {"name": "GPT-3.5 Turbo", "provider": "OpenAI", "max_tokens": 4096},
+        "gpt-4.1": {"name": "GPT-4.1", "provider": "OpenAI", "max_tokens": 1000000},
+        "gpt-4.1-mini": {"name": "GPT-4.1 Mini", "provider": "OpenAI", "max_tokens": 1000000},
+        "gpt-4.1-nano": {"name": "GPT-4.1 Nano", "provider": "OpenAI", "max_tokens": 1000000},
+        "o4-mini": {"name": "o4-mini", "provider": "OpenAI", "max_tokens": 128000},
     }
 
     def __init__(self):
@@ -33,13 +32,22 @@ class OpenAI_API(BaseAPIProvider):
     def generate_response(self, prompt: str, system_content: str) -> str:
         try:
             self.client = openai.OpenAI(api_key=self.api_key)
-            response = self.client.chat.completions.create(
+            response = self.client.responses.create(
                 model=self.current_model,
-                n=1,
-                messages=[{"role": "system", "content": system_content}, {"role": "user", "content": prompt}],
+                input=[
+                    {"role": "developer", "content": system_content},
+                    {"role": "user", "content": prompt},
+                ],
                 max_tokens=self.MODELS[self.current_model]["max_tokens"],
             )
-            return response.choices[0].message.content
+            # Extract the assistant's text output from the response
+            for output in response.output:
+                if output["role"] == "assistant":
+                    for content in output["content"]:
+                        if content["type"] == "output_text":
+                            return content["text"]
+            # Fallback if no assistant message found
+            return "[No assistant response found]"
         except openai.APIConnectionError as e:
             logger.error(f"Server could not be reached: {e.__cause__}")
             raise e
