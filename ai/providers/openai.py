@@ -9,10 +9,10 @@ logger = logging.getLogger(__name__)
 
 class OpenAI_API(BaseAPIProvider):
     MODELS = {
-        "gpt-4.1": {"name": "GPT-4.1", "provider": "OpenAI", "max_tokens": 1000000},
-        "gpt-4.1-mini": {"name": "GPT-4.1 Mini", "provider": "OpenAI", "max_tokens": 1000000},
-        "gpt-4.1-nano": {"name": "GPT-4.1 Nano", "provider": "OpenAI", "max_tokens": 1000000},
-        "o4-mini": {"name": "o4-mini", "provider": "OpenAI", "max_tokens": 128000},
+        "gpt-4.1": {"name": "GPT-4.1", "provider": "OpenAI", "max_tokens": 10000},
+        "gpt-4.1-mini": {"name": "GPT-4.1 Mini", "provider": "OpenAI", "max_tokens": 10000},
+        "gpt-4.1-nano": {"name": "GPT-4.1 Nano", "provider": "OpenAI", "max_tokens": 10000},
+        "o4-mini": {"name": "o4-mini", "provider": "OpenAI", "max_tokens": 50000},
     }
 
     def __init__(self):
