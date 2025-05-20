@@ -38,21 +38,9 @@ class OpenAI_API(BaseAPIProvider):
                     {"role": "developer", "content": system_content},
                     {"role": "user", "content": prompt},
                 ],
-                max_completion_tokens=self.MODELS[self.current_model]["max_tokens"],
+                max_output_tokens=self.MODELS[self.current_model]["max_tokens"],
             )
-            # Prefer the new property if available
-            if hasattr(response, "output_text") and response.output_text:
-                return response.output_text
-
-            # Fallback for older models/SDKs
-            if hasattr(response, "output"):
-                for output in response.output:
-                    if output.get("role") == "assistant":
-                        for content in output.get("content", []):
-                            if content.get("type") == "output_text":
-                                return content.get("text")
-
-            return "[No assistant response found]"
+            return response.output_text
         except openai.APIConnectionError as e:
             logger.error(f"Server could not be reached: {e.__cause__}")
             raise e
