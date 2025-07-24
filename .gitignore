@@ -38,3 +38,4 @@ logs/
 .pytype/
 data/*
 .slack/apps.dev.json
+.idea

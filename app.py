@@ -6,6 +6,11 @@ from slack_bolt.adapter.socket_mode import SocketModeHandler
 
 from listeners import register_listeners
 
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
+
 # Initialization
 app = App(token=os.environ.get("SLACK_BOT_TOKEN"))
 logging.basicConfig(level=logging.DEBUG)
