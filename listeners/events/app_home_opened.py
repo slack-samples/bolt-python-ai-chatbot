@@ -17,7 +17,11 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
     # create a list of options for the dropdown menu each containing the model name and provider
     options = [
         {
-            "text": {"type": "plain_text", "text": f"{model_info['name']} ({model_info['provider']})", "emoji": True},
+            "text": {
+                "type": "plain_text",
+                "text": f"{model_info['name']} ({model_info['provider']})",
+                "emoji": True,
+            },
             "value": f"{model_name} {model_info['provider'].lower()}",
         }
         for model_name, model_info in get_available_providers().items()
@@ -30,12 +34,18 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
     if user_state:
         initial_model = get_user_state(event["user"], True)[1]
         # set the initial option to the user's previously selected model
-        initial_option = list(filter(lambda x: x["value"].startswith(initial_model), options))
+        initial_option = list(
+            filter(lambda x: x["value"].startswith(initial_model), options)
+        )
     else:
         # add an empty option if the user has no previously selected model.
         options.append(
             {
-                "text": {"type": "plain_text", "text": "Select a provider", "emoji": True},
+                "text": {
+                    "type": "plain_text",
+                    "text": "Select a provider",
+                    "emoji": True,
+                },
                 "value": "null",
             }
         )
@@ -48,7 +58,11 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                 "blocks": [
                     {
                         "type": "header",
-                        "text": {"type": "plain_text", "text": "Welcome to Bolty's Home Page!", "emoji": True},
+                        "text": {
+                            "type": "plain_text",
+                            "text": "Welcome to Bolty's Home Page!",
+                            "emoji": True,
+                        },
                     },
                     {"type": "divider"},
                     {
@@ -56,7 +70,13 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                         "elements": [
                             {
                                 "type": "rich_text_section",
-                                "elements": [{"type": "text", "text": "Pick an option", "style": {"bold": True}}],
+                                "elements": [
+                                    {
+                                        "type": "text",
+                                        "text": "Pick an option",
+                                        "style": {"bold": True},
+                                    }
+                                ],
                             }
                         ],
                     },
@@ -65,7 +85,9 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                         "elements": [
                             {
                                 "type": "static_select",
-                                "initial_option": initial_option[0] if initial_option else options[-1],
+                                "initial_option": initial_option[0]
+                                if initial_option
+                                else options[-1],
                                 "options": options,
                                 "action_id": "pick_a_provider",
                             }

@@ -42,7 +42,12 @@ def _get_provider(provider_name: str):
         raise ValueError(f"Unknown provider: {provider_name}")
 
 
-def get_provider_response(user_id: str, prompt: str, context: Optional[List] = [], system_content=DEFAULT_SYSTEM_CONTENT):
+def get_provider_response(
+    user_id: str,
+    prompt: str,
+    context: Optional[List] = [],
+    system_content=DEFAULT_SYSTEM_CONTENT,
+):
     formatted_context = "\n".join([f"{msg['user']}: {msg['text']}" for msg in context])
     full_prompt = f"Prompt: {prompt}\nContext: {formatted_context}"
     try:

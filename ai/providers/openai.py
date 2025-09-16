@@ -10,8 +10,16 @@ logger = logging.getLogger(__name__)
 class OpenAI_API(BaseAPIProvider):
     MODELS = {
         "gpt-4.1": {"name": "GPT-4.1", "provider": "OpenAI", "max_tokens": 10000},
-        "gpt-4.1-mini": {"name": "GPT-4.1 Mini", "provider": "OpenAI", "max_tokens": 10000},
-        "gpt-4.1-nano": {"name": "GPT-4.1 Nano", "provider": "OpenAI", "max_tokens": 10000},
+        "gpt-4.1-mini": {
+            "name": "GPT-4.1 Mini",
+            "provider": "OpenAI",
+            "max_tokens": 10000,
+        },
+        "gpt-4.1-nano": {
+            "name": "GPT-4.1 Nano",
+            "provider": "OpenAI",
+            "max_tokens": 10000,
+        },
         "o4-mini": {"name": "o4-mini", "provider": "OpenAI", "max_tokens": 50000},
     }
 
@@ -51,5 +59,7 @@ class OpenAI_API(BaseAPIProvider):
             logger.error(f"There's an issue with your API key. {e}")
             raise e
         except openai.APIStatusError as e:
-            logger.error(f"Another non-200-range status code was received: {e.status_code}")
+            logger.error(
+                f"Another non-200-range status code was received: {e.status_code}"
+            )
             raise e

@@ -23,12 +23,22 @@ def app_messaged_callback(client: WebClient, event: dict, logger: Logger, say: S
             conversation_context = ""
 
             if thread_ts:  # Retrieves context to continue the conversation in a thread.
-                conversation = client.conversations_replies(channel=channel_id, limit=10, ts=thread_ts)["messages"]
+                conversation = client.conversations_replies(
+                    channel=channel_id, limit=10, ts=thread_ts
+                )["messages"]
                 conversation_context = parse_conversation(conversation[:-1])
 
             waiting_message = say(text=DEFAULT_LOADING_TEXT, thread_ts=thread_ts)
-            response = get_provider_response(user_id, text, conversation_context, DM_SYSTEM_CONTENT)
-            client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=response)
+            response = get_provider_response(
+                user_id, text, conversation_context, DM_SYSTEM_CONTENT
+            )
+            client.chat_update(
+                channel=channel_id, ts=waiting_message["ts"], text=response
+            )
     except Exception as e:
         logger.error(e)
-        client.chat_update(channel=channel_id, ts=waiting_message["ts"], text=f"Received an error from Bolty:\n{e}")
+        client.chat_update(
+            channel=channel_id,
+            ts=waiting_message["ts"],
+            text=f"Received an error from Bolty:\n{e}",
+        )
