@@ -1,6 +1,6 @@
 [tool.ruff]
 [tool.ruff.lint]
-[tool.ruff.format]25
+[tool.ruff.format]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
