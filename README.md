@@ -12,7 +12,7 @@ This Slack chatbot app template offers a customizable solution for integrating A
 * Bring Your Own Language Model [BYO LLM](#byo-llm) for customization
 * Custom FileStateStore creates a file in /data per user to store API/model preferences
 
-Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/main)
+Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/main) and [Bolt Python Assistant Template](https://github.com/slack-samples/bolt-python-assistant-template)
 
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 ## Installation
