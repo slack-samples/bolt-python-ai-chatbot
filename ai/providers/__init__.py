@@ -7,6 +7,8 @@ from .anthropic import AnthropicAPI
 from .openai import OpenAI_API
 from .vertexai import VertexAPI
 
+from slack_bolt import BoltContext
+
 """
 New AI providers must be added below.
 `get_available_providers()`
@@ -58,3 +60,12 @@ def get_provider_response(
         return response
     except Exception as e:
         raise e
+
+def get_assistant_response(
+    context: BoltContext,
+    prompt: str,
+    conversation_history: Optional[List] = None,
+    system_content=DEFAULT_SYSTEM_CONTENT,
+):
+    user_id = context.user_id
+    get_provider_response(user_id, prompt, conversation_history, system_content)
