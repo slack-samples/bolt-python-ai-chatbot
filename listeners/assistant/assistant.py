@@ -5,7 +5,7 @@ from slack_bolt.context.get_thread_context import GetThreadContext
 from slack_sdk import WebClient
 from slack_sdk.errors import SlackApiError
 
-from ai.providers import get_assistant_response
+from ai.providers import get_provider_response
 
 # Refer to https://tools.slack.dev/bolt-python/concepts/assistant/ for more details
 assistant = Assistant()
@@ -63,6 +63,7 @@ def respond_in_assistant_thread(
     say: Say,
 ):
     try:
+        user_id = context.user_id
         user_message = payload["text"]
         set_status("is typing...")
 
@@ -87,7 +88,7 @@ def respond_in_assistant_thread(
                 if message.get("user") is not None:
                     prompt += f"\n<@{message['user']}> says: {message['text']}\n"
             messages_in_thread = [{"role": "user", "content": prompt}]
-            returned_message = get_assistant_response(context, messages_in_thread)
+            returned_message = get_provider_response(user_id, messages_in_thread)
             say(returned_message)
             return
 
@@ -101,7 +102,7 @@ def respond_in_assistant_thread(
         for message in replies["messages"]:
             role = "user" if message.get("bot_id") is None else "assistant"
             messages_in_thread.append({"role": role, "content": message["text"]})
-        returned_message = get_assistant_response(context, messages_in_thread)
+        returned_message = get_provider_response(user_id, messages_in_thread)
         say(returned_message)
 
     except Exception as e:
