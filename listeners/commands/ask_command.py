@@ -9,7 +9,9 @@ checks if the prompt is empty, and responds with either an error message or the 
 """
 
 
-def ask_callback(client: WebClient, ack: Ack, command, say: Say, logger: Logger, context: BoltContext):
+def ask_callback(
+    client: WebClient, ack: Ack, command, say: Say, logger: Logger, context: BoltContext
+):
     try:
         ack()
         user_id = context["user_id"]
@@ -18,7 +20,9 @@ def ask_callback(client: WebClient, ack: Ack, command, say: Say, logger: Logger,
 
         if prompt == "":
             client.chat_postEphemeral(
-                channel=channel_id, user=user_id, text="Looks like you didn't provide a prompt. Try again."
+                channel=channel_id,
+                user=user_id,
+                text="Looks like you didn't provide a prompt. Try again.",
             )
         else:
             client.chat_postEphemeral(
@@ -34,7 +38,12 @@ def ask_callback(client: WebClient, ack: Ack, command, say: Say, logger: Logger,
                             },
                             {
                                 "type": "rich_text_section",
-                                "elements": [{"type": "text", "text": get_provider_response(user_id, prompt)}],
+                                "elements": [
+                                    {
+                                        "type": "text",
+                                        "text": get_provider_response(user_id, prompt),
+                                    }
+                                ],
                             },
                         ],
                     }
@@ -42,4 +51,6 @@ def ask_callback(client: WebClient, ack: Ack, command, say: Say, logger: Logger,
             )
     except Exception as e:
         logger.error(e)
-        client.chat_postEphemeral(channel=channel_id, user=user_id, text=f"Received an error from Bolty:\n{e}")
+        client.chat_postEphemeral(
+            channel=channel_id, user=user_id, text=f"Received an error from Bolty:\n{e}"
+        )

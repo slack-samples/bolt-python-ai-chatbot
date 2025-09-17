@@ -14,9 +14,21 @@ class AnthropicAPI(BaseAPIProvider):
             "provider": "Anthropic",
             "max_tokens": 4096,  # or 8192 with the header anthropic-beta: max-tokens-3-5-sonnet-2024-07-15
         },
-        "claude-3-sonnet-20240229": {"name": "Claude 3 Sonnet", "provider": "Anthropic", "max_tokens": 4096},
-        "claude-3-haiku-20240307": {"name": "Claude 3 Haiku", "provider": "Anthropic", "max_tokens": 4096},
-        "claude-3-opus-20240229": {"name": "Claude 3 Opus", "provider": "Anthropic", "max_tokens": 4096},
+        "claude-3-sonnet-20240229": {
+            "name": "Claude 3 Sonnet",
+            "provider": "Anthropic",
+            "max_tokens": 4096,
+        },
+        "claude-3-haiku-20240307": {
+            "name": "Claude 3 Haiku",
+            "provider": "Anthropic",
+            "max_tokens": 4096,
+        },
+        "claude-3-opus-20240229": {
+            "name": "Claude 3 Opus",
+            "provider": "Anthropic",
+            "max_tokens": 4096,
+        },
     }
 
     def __init__(self):
@@ -39,7 +51,9 @@ class AnthropicAPI(BaseAPIProvider):
             response = self.client.messages.create(
                 model=self.current_model,
                 system=system_content,
-                messages=[{"role": "user", "content": [{"type": "text", "text": prompt}]}],
+                messages=[
+                    {"role": "user", "content": [{"type": "text", "text": prompt}]}
+                ],
                 max_tokens=self.MODELS[self.current_model]["max_tokens"],
             )
             return response.content[0].text
@@ -53,5 +67,7 @@ class AnthropicAPI(BaseAPIProvider):
             logger.error(f"There's an issue with your API key. {e}")
             raise e
         except anthropic.APIStatusError as e:
-            logger.error(f"Another non-200-range status code was received: {e.status_code}")
+            logger.error(
+                f"Another non-200-range status code was received: {e.status_code}"
+            )
             raise e

@@ -13,7 +13,12 @@ and completes the workflow with the summary or fails if an error occurs.
 
 
 def handle_summary_function_callback(
-    ack: Ack, inputs: dict, fail: Fail, logger: Logger, client: WebClient, complete: Complete
+    ack: Ack,
+    inputs: dict,
+    fail: Fail,
+    logger: Logger,
+    client: WebClient,
+    complete: Complete,
 ):
     ack()
     try:
@@ -22,7 +27,9 @@ def handle_summary_function_callback(
         history = client.conversations_history(channel=channel_id, limit=10)["messages"]
         conversation = parse_conversation(history)
 
-        summary = get_provider_response(user_context["id"], SUMMARIZE_CHANNEL_WORKFLOW, conversation)
+        summary = get_provider_response(
+            user_context["id"], SUMMARIZE_CHANNEL_WORKFLOW, conversation
+        )
 
         complete({"user_context": user_context, "response": summary})
     except Exception as e:

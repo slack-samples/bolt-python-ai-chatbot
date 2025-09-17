@@ -1,5 +1,6 @@
-[tool.black]
-line-length = 125
+[tool.ruff]
+[tool.ruff.lint]
+[tool.ruff.format]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

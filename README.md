@@ -98,11 +98,11 @@ python3 app.py
 
 #### Linting
 ```zsh
-# Run flake8 from root directory for linting
-flake8 *.py && flake8 listeners/
+# Run ruff check from root directory for linting
+ruff check .
 
-# Run black from root directory for code formatting
-black .
+# Run ruff format from root directory for code formatting
+ruff format .
 ```
 
 ## Project Structure
