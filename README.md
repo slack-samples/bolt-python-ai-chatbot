@@ -124,9 +124,9 @@ ruff format .
 Every incoming request is routed to a "listener". Inside this directory, we group each listener based on the Slack Platform feature used, so `/listeners/commands` handles incoming [Slash Commands](https://api.slack.com/interactivity/slash-commands) requests, `/listeners/events` handles [Events](https://api.slack.com/apis/events-api) and so on.
 
 
-&nbsp;&nbsp;&nbsp;&nbsp;**`/listeners/assistant`**
+**`/listeners/assistant`**
 
-&nbsp;&nbsp;&nbsp;&nbsp;Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This includes:
+Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This includes:
 *  `@assistant.thread_started` - Manages when users start new assistant threads. 
 *  `@assistant.user_message` - Processes user messages in assistant threads and app DMs. **Replaces traditional DM handling as seen in** `/listeners/events/app_messaged.py`
 
