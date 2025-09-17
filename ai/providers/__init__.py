@@ -7,7 +7,6 @@ from .anthropic import AnthropicAPI
 from .openai import OpenAI_API
 from .vertexai import VertexAPI
 
-from slack_bolt import BoltContext
 
 """
 New AI providers must be added below.
