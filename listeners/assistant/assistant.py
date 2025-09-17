@@ -48,7 +48,7 @@ def start_assistant_thread(
         set_suggested_prompts(prompts=prompts)
     except Exception as e:
         logger.exception(f"Failed to handle an assistant_thread_started event: {e}", e)
-        say(f":warning: Something went wrong! ({e})")
+        say(f":warning: Received an error from Bolty:\n{e}")
 
 
 # This listener is invoked when the human user sends a reply in the assistant thread
@@ -111,4 +111,4 @@ def respond_in_assistant_thread(
 
     except Exception as e:
         logger.exception(f"Failed to handle a user message event: {e}")
-        say(f":warning: Something went wrong! ({e})")
+        say(f":warning: Received an error from Bolty:\n{e}")
