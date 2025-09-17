@@ -2,6 +2,8 @@
 
 This Slack chatbot app template offers a customizable solution for integrating AI-powered conversations into your Slack workspace. Here's what the app can do out of the box:
 
+* **Use the new Slack Assistant UI** - Start conversations in a dedicated side panel for a focused chat experience
+* **Interactive chat with suggested prompts** - Get started quickly with pre-configured conversation starters
 * Interact with the bot by mentioning it in conversations and threads
 * Send direct messages to the bot for private interactions
 * Use the `/ask-bolty` command to communicate with the bot in channels where it hasn't been added
@@ -120,6 +122,14 @@ ruff format .
 ### `/listeners`
 
 Every incoming request is routed to a "listener". Inside this directory, we group each listener based on the Slack Platform feature used, so `/listeners/commands` handles incoming [Slash Commands](https://api.slack.com/interactivity/slash-commands) requests, `/listeners/events` handles [Events](https://api.slack.com/apis/events-api) and so on.
+
+
+&nbsp;&nbsp;&nbsp;&nbsp;**`/listeners/assistant`**
+
+&nbsp;&nbsp;&nbsp;&nbsp;Configures the new Slack Assistant features, providing a dedicated side panel UI for users to interact with the AI chatbot. This includes:
+*  `@assistant.thread_started` - Manages when users start new assistant threads. 
+*  `@assistant.user_message` - Processes user messages in assistant threads and app DMs. **Replaces traditional DM handling as seen in** `/listeners/events/app_messaged.py`
+
 
 ### `/ai`
 
