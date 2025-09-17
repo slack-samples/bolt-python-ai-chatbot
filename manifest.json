@@ -7,6 +7,9 @@
         "name": "Bolty"
     },
     "features": {
+        "assistant_view":{
+            "assistant_description": "Interact with an AI chatbot."
+        },
         "app_home": {
             "home_tab_enabled": true,
             "messages_tab_enabled": true,
@@ -27,6 +30,7 @@
     "oauth_config": {
         "scopes": {
             "bot": [
+                "assistant:write",
                 "app_mentions:read",
                 "channels:history",
                 "channels:read",
@@ -94,7 +98,9 @@
                 "message.channels",
                 "message.groups",
                 "message.im",
-                "message.mpim"
+                "message.mpim",
+                "assistant_thread_started",
+                "assistant_thread_context_changed"
             ]
         },
         "interactivity": {

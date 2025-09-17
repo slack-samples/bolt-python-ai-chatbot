@@ -52,5 +52,7 @@ def ask_callback(
     except Exception as e:
         logger.error(e)
         client.chat_postEphemeral(
-            channel=channel_id, user=user_id, text=f"Received an error from Bolty:\n{e}"
+            channel=channel_id,
+            user=user_id,
+            text=f":warning: Received an error from Bolty:\n{e}",
         )
