@@ -33,6 +33,7 @@
                 "assistant:write",
                 "app_mentions:read",
                 "channels:history",
+                "channels:join",
                 "channels:read",
                 "chat:write",
                 "chat:write.public",
@@ -94,13 +95,13 @@
             "bot_events": [
                 "app_home_opened",
                 "app_mention",
+                "assistant_thread_started",
+                "assistant_thread_context_changed",
                 "function_executed",
                 "message.channels",
                 "message.groups",
                 "message.im",
-                "message.mpim",
-                "assistant_thread_started",
-                "assistant_thread_context_changed"
+                "message.mpim"
             ]
         },
         "interactivity": {
