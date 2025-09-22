@@ -7,7 +7,13 @@ from ..listener_utils.listener_constants import DEFAULT_LOADING_TEXT
 from ..listener_utils.parse_conversation import parse_conversation
 
 """
-Handles the event when a direct message is sent to the bot, retrieves the conversation context,
+WARNING: This callback is the traditional way of handling direct messages and is only used 
+when Slack Assistant features are turned off (when assistant:write scope is removed from manifest.json).
+
+When assistant:write is enabled in the manifest, messages are handled through the Assistant handlers 
+in listeners/assistant/assistant.py instead of this callback.
+
+Handles the event when a direct message is sent to non-assistant bots, retrieves the conversation context,
 and generates an AI response.
 """
 
@@ -40,5 +46,5 @@ def app_messaged_callback(client: WebClient, event: dict, logger: Logger, say: S
         client.chat_update(
             channel=channel_id,
             ts=waiting_message["ts"],
-            text=f"Received an error from Bolty:\n{e}",
+            text=f":warning: Received an error from Bolty:\n{e}",
         )

@@ -17,8 +17,8 @@ def handle_summary_function_callback(
     inputs: dict,
     fail: Fail,
     logger: Logger,
-    client: WebClient,
     complete: Complete,
+    client: WebClient,
 ):
     ack()
     try:
