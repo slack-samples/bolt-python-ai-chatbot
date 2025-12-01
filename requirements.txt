@@ -1,7 +1,7 @@
 slack-bolt==1.26.0
 pytest
 ruff
-slack-cli-hooks==0.1.0
+slack-cli-hooks==0.2.0
 openai==2.6.1
 anthropic==0.72.0
 google-cloud-aiplatform==1.124.0
