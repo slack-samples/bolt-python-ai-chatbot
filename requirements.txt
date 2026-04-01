@@ -3,5 +3,5 @@ pytest
 ruff
 slack-cli-hooks==0.3.0
 openai==2.30.0
-anthropic==0.84.0
+anthropic==0.87.0
 google-cloud-aiplatform==1.144.0
