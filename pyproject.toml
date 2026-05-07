@@ -1,3 +1,33 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "bolt-python-ai-chatbot"
+version = "0.1.0"
+requires-python = ">=3.10"
+dependencies = [
+    "slack-bolt==1.28.0",
+    "slack-cli-hooks==0.3.0",
+    "openai==2.33.0",
+    "anthropic==0.97.0",
+    "google-cloud-aiplatform==1.149.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest",
+    "ruff",
+]
+
+test = [
+    "pytest",
+]
+
+
+[tool.setuptools.packages.find]
+include = ["ai*", "listeners*", "state_store*"]
+
 [tool.ruff]
 [tool.ruff.lint]
 [tool.ruff.format]
