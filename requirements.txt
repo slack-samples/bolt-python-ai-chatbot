@@ -4,4 +4,4 @@ ruff
 slack-cli-hooks==0.3.0
 openai==2.40.0
 anthropic==0.105.2
-google-cloud-aiplatform==1.149.0
+google-cloud-aiplatform==1.154.0
