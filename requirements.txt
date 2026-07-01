@@ -1,4 +1,4 @@
-slack-bolt==1.28.0
+slack-bolt==1.29.0
 pytest==9.1.1
 ruff==0.15.19
 slack-cli-hooks==0.3.0
