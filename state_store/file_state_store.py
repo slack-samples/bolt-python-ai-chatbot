@@ -6,7 +6,6 @@ from pathlib import Path
 from .user_identity import UserIdentity
 from .user_state_store import UserStateStore
 
-
 _logger = logging.getLogger(__name__)
 
 
