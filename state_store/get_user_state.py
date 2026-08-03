@@ -1,7 +1,8 @@
 import json
-import os
-from state_store.user_identity import UserIdentity
 import logging
+import os
+
+from state_store.user_identity import UserIdentity
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
@@ -20,4 +21,4 @@ def get_user_state(user_id: str, is_app_home: bool):
                 return user_identity["provider"], user_identity["model"]
     except Exception as e:
         logger.error(e)
-        raise e
+        raise

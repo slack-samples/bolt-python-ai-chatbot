@@ -1,7 +1,7 @@
 # A base class for API providers, defining the interface and common properties for subclasses.
 
 
-class BaseAPIProvider(object):
+class BaseAPIProvider:
     def set_model(self, model_name: str):
         raise NotImplementedError("Subclass must implement set_model")
 

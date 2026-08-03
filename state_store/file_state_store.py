@@ -1,9 +1,13 @@
-from .user_state_store import UserStateStore
-from .user_identity import UserIdentity
-import logging
-from pathlib import Path
 import json
+import logging
 import os
+from pathlib import Path
+
+from .user_identity import UserIdentity
+from .user_state_store import UserStateStore
+
+
+_logger = logging.getLogger(__name__)
 
 
 class FileStateStore(UserStateStore):
@@ -11,7 +15,7 @@ class FileStateStore(UserStateStore):
         self,
         *,
         base_dir: str = "./data",
-        logger: logging.Logger = logging.getLogger(__name__),
+        logger: logging.Logger = _logger,
     ):
         self.base_dir = base_dir
         self.logger = logger
@@ -34,7 +38,7 @@ class FileStateStore(UserStateStore):
             return state
         except FileNotFoundError as e:
             self.logger.warning(f"Failed to find data for {user_identity} - {e}")
-            raise e
+            raise
 
     @staticmethod
     def _mkdir(path):

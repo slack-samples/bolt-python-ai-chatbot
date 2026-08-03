@@ -1,7 +1,4 @@
-from listeners import actions
-from listeners import commands
-from listeners import events
-from listeners import functions
+from listeners import actions, commands, events, functions
 
 
 def register_listeners(app):

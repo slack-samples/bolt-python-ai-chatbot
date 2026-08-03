@@ -1,14 +1,17 @@
-import openai
-from .base_provider import BaseAPIProvider
-import os
 import logging
+import os
+from typing import ClassVar
+
+import openai
+
+from .base_provider import BaseAPIProvider
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 
 class OpenAI_API(BaseAPIProvider):
-    MODELS = {
+    MODELS: ClassVar[dict] = {
         "gpt-4.1": {"name": "GPT-4.1", "provider": "OpenAI", "max_tokens": 10000},
         "gpt-4.1-mini": {
             "name": "GPT-4.1 Mini",
@@ -27,7 +30,7 @@ class OpenAI_API(BaseAPIProvider):
         self.api_key = os.environ.get("OPENAI_API_KEY")
 
     def set_model(self, model_name: str):
-        if model_name not in self.MODELS.keys():
+        if model_name not in self.MODELS:
             raise ValueError("Invalid model")
         self.current_model = model_name
 
@@ -51,15 +54,15 @@ class OpenAI_API(BaseAPIProvider):
             return response.output_text
         except openai.APIConnectionError as e:
             logger.error(f"Server could not be reached: {e.__cause__}")
-            raise e
+            raise
         except openai.RateLimitError as e:
             logger.error(f"A 429 status code was received. {e}")
-            raise e
+            raise
         except openai.AuthenticationError as e:
             logger.error(f"There's an issue with your API key. {e}")
-            raise e
+            raise
         except openai.APIStatusError as e:
             logger.error(
                 f"Another non-200-range status code was received: {e.status_code}"
             )
-            raise e
+            raise
