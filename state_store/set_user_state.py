@@ -6,5 +6,5 @@ def set_user_state(user_id: str, provider_name: str, model_name: str):
         user = UserIdentity(user_id=user_id, provider=provider_name, model=model_name)
         file_store = FileStateStore()
         file_store.set_state(user)
-    except Exception as e:
-        raise ValueError(f"Error instantiating API: {e}")
+    except (OSError, TypeError) as e:
+        raise ValueError(f"Error instantiating API: {e}") from e

@@ -1,6 +1,9 @@
 from logging import Logger
-from ai.providers import get_available_providers
+
 from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
+
+from ai.providers import get_available_providers
 from state_store.get_user_state import get_user_state
 
 """
@@ -96,5 +99,5 @@ def app_home_opened_callback(event: dict, logger: Logger, client: WebClient):
                 ],
             },
         )
-    except Exception as e:
+    except SlackApiError as e:
         logger.error(e)

@@ -1,7 +1,10 @@
-from slack_bolt import Ack, Say, BoltContext
 from logging import Logger
-from ai.providers import get_provider_response
+
+from slack_bolt import Ack, BoltContext, Say
 from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
+
+from ai.providers import get_provider_response
 
 """
 Callback for handling the 'ask-bolty' command. It acknowledges the command, retrieves the user's ID and prompt,
@@ -49,7 +52,7 @@ def ask_callback(
                     }
                 ],
             )
-    except Exception as e:
+    except (SlackApiError, ValueError, RuntimeError) as e:
         logger.error(e)
         client.chat_postEphemeral(
             channel=channel_id, user=user_id, text=f"Received an error from Bolty:\n{e}"

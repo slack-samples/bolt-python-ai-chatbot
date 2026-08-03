@@ -1,8 +1,12 @@
-from ai.ai_constants import DM_SYSTEM_CONTENT
-from ai.providers import get_provider_response
 from logging import Logger
+
 from slack_bolt import Say
 from slack_sdk import WebClient
+from slack_sdk.errors import SlackApiError
+
+from ai.ai_constants import DM_SYSTEM_CONTENT
+from ai.providers import get_provider_response
+
 from ..listener_utils.listener_constants import DEFAULT_LOADING_TEXT
 from ..listener_utils.parse_conversation import parse_conversation
 
@@ -35,7 +39,7 @@ def app_messaged_callback(client: WebClient, event: dict, logger: Logger, say: S
             client.chat_update(
                 channel=channel_id, ts=waiting_message["ts"], text=response
             )
-    except Exception as e:
+    except (SlackApiError, KeyError, ValueError, RuntimeError) as e:
         logger.error(e)
         client.chat_update(
             channel=channel_id,

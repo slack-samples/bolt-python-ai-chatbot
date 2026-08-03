@@ -1,5 +1,7 @@
 from logging import Logger
+
 from slack_bolt import Ack
+
 from state_store.set_user_state import set_user_state
 
 
@@ -17,5 +19,5 @@ def set_user_selection(logger: Logger, ack: Ack, body: dict):
             set_user_state(user_id, selected_provider, selected_model)
         else:
             raise ValueError("Please make a selection")
-    except Exception as e:
+    except (KeyError, ValueError) as e:
         logger.error(e)

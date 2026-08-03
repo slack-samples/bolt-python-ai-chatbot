@@ -1,7 +1,10 @@
-from ai.providers import get_provider_response
 from logging import Logger
-from slack_bolt import Complete, Fail, Ack
+
+from slack_bolt import Ack, Complete, Fail
 from slack_sdk import WebClient
+
+from ai.providers import get_provider_response
+
 from ..listener_utils.listener_constants import SUMMARIZE_CHANNEL_WORKFLOW
 from ..listener_utils.parse_conversation import parse_conversation
 
@@ -33,5 +36,5 @@ def handle_summary_function_callback(
 
         complete({"user_context": user_context, "response": summary})
     except Exception as e:
-        logger.exception(e)
+        logger.exception("Failed to run summary function")
         fail(e)

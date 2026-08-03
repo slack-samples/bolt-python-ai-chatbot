@@ -1,14 +1,17 @@
-from .base_provider import BaseAPIProvider
-import anthropic
-import os
 import logging
+import os
+from typing import ClassVar
+
+import anthropic
+
+from .base_provider import BaseAPIProvider
 
 logging.basicConfig(level=logging.ERROR)
 logger = logging.getLogger(__name__)
 
 
 class AnthropicAPI(BaseAPIProvider):
-    MODELS = {
+    MODELS: ClassVar[dict] = {
         "claude-3-5-sonnet-20240620": {
             "name": "Claude 3.5 Sonnet",
             "provider": "Anthropic",
@@ -35,7 +38,7 @@ class AnthropicAPI(BaseAPIProvider):
         self.api_key = os.environ.get("ANTHROPIC_API_KEY")
 
     def set_model(self, model_name: str):
-        if model_name not in self.MODELS.keys():
+        if model_name not in self.MODELS:
             raise ValueError("Invalid model")
         self.current_model = model_name
 
@@ -59,15 +62,15 @@ class AnthropicAPI(BaseAPIProvider):
             return response.content[0].text
         except anthropic.APIConnectionError as e:
             logger.error(f"Server could not be reached: {e.__cause__}")
-            raise e
+            raise
         except anthropic.RateLimitError as e:
             logger.error(f"A 429 status code was received. {e}")
-            raise e
+            raise
         except anthropic.AuthenticationError as e:
             logger.error(f"There's an issue with your API key. {e}")
-            raise e
+            raise
         except anthropic.APIStatusError as e:
             logger.error(
                 f"Another non-200-range status code was received: {e.status_code}"
             )
-            raise e
+            raise
