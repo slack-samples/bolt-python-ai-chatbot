@@ -15,6 +15,35 @@ Inspired by [ChatGPT-in-Slack](https://github.com/seratch/ChatGPT-in-Slack/tree/
 Before getting started, make sure you have a development workspace where you have permissions to install apps. If you don’t have one setup, go ahead and [create one](https://slack.com/create).
 ## Installation
 
+### Using Slack CLI
+
+Install the latest version of the Slack CLI for your operating system:
+
+- [Slack CLI for macOS & Linux](https://docs.slack.dev/tools/slack-cli/guides/installing-the-slack-cli-for-mac-and-linux/)
+- [Slack CLI for Windows](https://docs.slack.dev/tools/slack-cli/guides/installing-the-slack-cli-for-windows/)
+
+You'll also need to log in if this is your first time using the Slack CLI.
+
+```sh
+slack login
+```
+
+#### Initializing the project
+
+```sh
+slack create bolt-python-ai-chatbot --template slack-samples/bolt-python-ai-chatbot
+cd bolt-python-ai-chatbot
+```
+
+#### Running the app
+
+```sh
+slack run
+```
+
+<details>
+<summary><h3>Using Terminal</h3></summary>
+
 #### Prerequisites
 * To use the OpenAI and Anthropic models, you must have an account with sufficient credits.
 * To use the Vertex models, you must have [a Google Cloud Provider project](https://cloud.google.com/vertex-ai/generative-ai/docs/start/quickstarts/quickstart-multimodal#expandable-1) with sufficient credits.
@@ -77,7 +106,7 @@ Unlock the OpenAI models from your OpenAI account dashboard by clicking [create 
 export OPENAI_API_KEY=<your-api-key>
 ```
 
-### Setup Your Local Project
+#### Setup Your Local Project
 ```zsh
 # Clone this project onto your machine
 git clone https://github.com/slack-samples/bolt-python-ai-chatbot.git
@@ -104,6 +133,8 @@ ruff check .
 # Run ruff format from root directory for code formatting
 ruff format .
 ```
+
+</details>
 
 ## Project Structure
 
