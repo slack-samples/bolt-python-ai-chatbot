@@ -43,7 +43,7 @@ class AnthropicAPI(BaseAPIProvider):
         self.current_model = model_name
 
     def get_models(self) -> dict:
-        if self.api_key is not None:
+        if self.api_key:
             return self.MODELS
         else:
             return {}
