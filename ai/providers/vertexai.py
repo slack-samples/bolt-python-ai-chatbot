@@ -2,8 +2,8 @@ import logging
 import os
 from typing import ClassVar
 
-import google.api_core.exceptions
-import vertexai.generative_models
+from google import genai
+from google.genai import errors, types
 
 from .base_provider import BaseAPIProvider
 
@@ -14,58 +14,22 @@ logger = logging.getLogger(__name__)
 class VertexAPI(BaseAPIProvider):
     VERTEX_AI_PROVIDER = "VertexAI"
     MODELS: ClassVar[dict] = {
-        "gemini-1.5-flash-001": {
-            "name": "Gemini 1.5 Flash 001",
+        "gemini-3.5-flash-lite": {
+            "name": "Gemini 3.5 Flash-Lite",
             "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
+            "max_tokens": 16384,
             "system_instruction_supported": True,
         },
-        "gemini-1.5-flash-002": {
-            "name": "Gemini 1.5 Flash 002",
+        "gemini-3.8-flash": {
+            "name": "Gemini 3.8 Flash",
             "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
+            "max_tokens": 16384,
             "system_instruction_supported": True,
         },
-        "gemini-1.5-pro-002": {
-            "name": "Gemini 1.5 Pro 002",
+        "gemini-4-argon": {
+            "name": "Gemini 4 Argon",
             "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
-            "system_instruction_supported": True,
-        },
-        "gemini-1.5-pro-001": {
-            "name": "Gemini 1.5 Pro 001",
-            "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
-            "system_instruction_supported": True,
-        },
-        "gemini-1.0-pro-002": {
-            "name": "Gemini 1.0 Pro 002",
-            "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
-            "system_instruction_supported": True,
-        },
-        "gemini-1.0-pro-001": {
-            "name": "Gemini 1.0 Pro 001",
-            "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
-            "system_instruction_supported": False,
-        },
-        "gemini-flash-experimental": {
-            "name": "Gemini Flash Experimental",
-            "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
-            "system_instruction_supported": True,
-        },
-        "gemini-pro-experimental": {
-            "name": "Gemini Pro Experimental",
-            "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
-            "system_instruction_supported": True,
-        },
-        "gemini-experimental": {
-            "name": "Gemini Experimental",
-            "provider": VERTEX_AI_PROVIDER,
-            "max_tokens": 8192,
+            "max_tokens": 16384,
             "system_instruction_supported": True,
         },
     }
@@ -73,7 +37,8 @@ class VertexAPI(BaseAPIProvider):
     def __init__(self):
         self.enabled = bool(os.environ.get("VERTEX_AI_PROJECT_ID", ""))
         if self.enabled:
-            vertexai.init(
+            self.client = genai.Client(
+                enterprise=True,
                 project=os.environ.get("VERTEX_AI_PROJECT_ID"),
                 location=os.environ.get("VERTEX_AI_LOCATION"),
             )
@@ -97,36 +62,22 @@ class VertexAPI(BaseAPIProvider):
             prompt = system_content + "\n" + prompt
 
         try:
-            self.client = vertexai.generative_models.GenerativeModel(
-                model_name=self.current_model,
-                generation_config={
-                    "max_output_tokens": self.MODELS[self.current_model]["max_tokens"],
-                },
-                system_instruction=system_instruction,
-            )
-            response = self.client.generate_content(
+            response = self.client.models.generate_content(
+                model=self.current_model,
                 contents=prompt,
+                config=types.GenerateContentConfig(
+                    max_output_tokens=self.MODELS[self.current_model]["max_tokens"],
+                    system_instruction=system_instruction,
+                ),
             )
-            return "".join(part.text for part in response.candidates[0].content.parts)
+            return response.text
 
-        except google.api_core.exceptions.Unauthorized as e:
-            logger.error(f"Client is not Authorized. {e.reason}, {e.message}")
+        except errors.ClientError as e:
+            logger.error(f"Client error: {e.code} {e.status}, {e.message}")
             raise
-        except google.api_core.exceptions.Forbidden as e:
-            logger.error(f"Client Forbidden. {e.reason}, {e.message}")
+        except errors.ServerError as e:
+            logger.error(f"Server error: {e.code} {e.status}, {e.message}")
             raise
-        except google.api_core.exceptions.TooManyRequests as e:
-            logger.error(f"Too many requests. {e.reason}, {e.message}")
-            raise
-        except google.api_core.exceptions.ClientError as e:
-            logger.error(f"Client error: {e.reason}, {e.message}")
-            raise
-        except google.api_core.exceptions.ServerError as e:
-            logger.error(f"Server error: {e.reason}, {e.message}")
-            raise
-        except google.api_core.exceptions.GoogleAPICallError as e:
-            logger.error(f"Error: {e.reason}, {e.message}")
-            raise
-        except google.api_core.exceptions.GoogleAPIError as e:
-            logger.error(f"Unknown error. {e}")
+        except errors.APIError as e:
+            logger.error(f"Error: {e.code} {e.status}, {e.message}")
             raise

@@ -12,25 +12,20 @@ logger = logging.getLogger(__name__)
 
 class AnthropicAPI(BaseAPIProvider):
     MODELS: ClassVar[dict] = {
-        "claude-3-5-sonnet-20240620": {
-            "name": "Claude 3.5 Sonnet",
+        "claude-haiku-5-5": {
+            "name": "Claude Haiku 5.5",
             "provider": "Anthropic",
-            "max_tokens": 4096,  # or 8192 with the header anthropic-beta: max-tokens-3-5-sonnet-2024-07-15
+            "max_tokens": 16000,
         },
-        "claude-3-sonnet-20240229": {
-            "name": "Claude 3 Sonnet",
+        "claude-opus-5-5": {
+            "name": "Claude Opus 5.5",
             "provider": "Anthropic",
-            "max_tokens": 4096,
+            "max_tokens": 16000,
         },
-        "claude-3-haiku-20240307": {
-            "name": "Claude 3 Haiku",
+        "claude-sonnet-5-5": {
+            "name": "Claude Sonnet 5.5",
             "provider": "Anthropic",
-            "max_tokens": 4096,
-        },
-        "claude-3-opus-20240229": {
-            "name": "Claude 3 Opus",
-            "provider": "Anthropic",
-            "max_tokens": 4096,
+            "max_tokens": 16000,
         },
     }
 
@@ -59,7 +54,9 @@ class AnthropicAPI(BaseAPIProvider):
                 ],
                 max_tokens=self.MODELS[self.current_model]["max_tokens"],
             )
-            return response.content[0].text
+            return "".join(
+                block.text for block in response.content if block.type == "text"
+            )
         except anthropic.APIConnectionError as e:
             logger.error(f"Server could not be reached: {e.__cause__}")
             raise

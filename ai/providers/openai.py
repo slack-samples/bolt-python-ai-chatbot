@@ -12,18 +12,21 @@ logger = logging.getLogger(__name__)
 
 class OpenAI_API(BaseAPIProvider):
     MODELS: ClassVar[dict] = {
-        "gpt-4.1": {"name": "GPT-4.1", "provider": "OpenAI", "max_tokens": 10000},
-        "gpt-4.1-mini": {
-            "name": "GPT-4.1 Mini",
+        "gpt-6-astra": {
+            "name": "GPT-6 Astra",
             "provider": "OpenAI",
-            "max_tokens": 10000,
+            "max_tokens": 16000,
         },
-        "gpt-4.1-nano": {
-            "name": "GPT-4.1 Nano",
+        "gpt-6-luna": {
+            "name": "GPT-6 Luna",
             "provider": "OpenAI",
-            "max_tokens": 10000,
+            "max_tokens": 16000,
         },
-        "o4-mini": {"name": "o4-mini", "provider": "OpenAI", "max_tokens": 50000},
+        "gpt-6.1-sol": {
+            "name": "GPT-6.1 Sol",
+            "provider": "OpenAI",
+            "max_tokens": 16000,
+        },
     }
 
     def __init__(self):
