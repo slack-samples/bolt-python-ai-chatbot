@@ -1,13 +1,19 @@
 version: 2
 updates:
-  - package-ecosystem: "pip"
-    directory: "/"
-    schedule:
-      interval: "monthly"
-    labels:
-      - "pip"
-      - "dependencies"
   - package-ecosystem: "github-actions"
     directory: "/"
     schedule:
-      interval: "monthly"
+      interval: "daily"
+    cooldown:
+      default-days: 7
+  - package-ecosystem: "pip"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    cooldown:
+      default-days: 7
+      exclude:
+        - "slack-*"
+    labels:
+      - "pip"
+      - "dependencies"
