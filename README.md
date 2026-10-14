@@ -64,10 +64,10 @@ Once your project and credentials are configured, export environment variables t
 
 ```zsh
 export VERTEX_AI_PROJECT_ID=<your-project-id>
-export VERTEX_AI_LOCATION=<location-to-deploy-model>
+export VERTEX_AI_LOCATION=global
 ```
 
-The project location can be located under the **Region** on the [Vertex AI](https://console.cloud.google.com/vertex-ai) dashboard, as well as more details about available Gemini models.
+The included Gemini models are served from the `global` location or the `us` and `eu` multi-regions. More details about available Gemini models and their supported regions are found in the [Google Cloud documentation](https://docs.cloud.google.com/vertex-ai/generative-ai/docs/models).
 
 ##### OpenAI Setup
 
