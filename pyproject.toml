@@ -1,3 +1,24 @@
+[project]
+name = "bolt-python-ai-chatbot"
+version = "0.0.0"
+requires-python = ">=3.10"
+dependencies = [
+    "slack-bolt==1.30.0",
+    "slack-cli-hooks==0.3.0",
+    "openai==3.26.1",
+    "anthropic==1.13.0",
+    "google-genai==2.30.1",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest==9.1.1",
+    "ruff==0.16.10",
+]
+
+[tool.setuptools.packages.find]
+include = ["ai*", "listeners*", "state_store*"]
+
 [tool.ruff]
 [tool.ruff.lint]
 [tool.ruff.format]

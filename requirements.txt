@@ -1,7 +1,0 @@
-slack-bolt==1.30.0
-pytest==9.1.1
-ruff==0.16.10
-slack-cli-hooks==0.3.0
-openai==3.26.1
-anthropic==1.13.0
-google-genai==2.30.1
