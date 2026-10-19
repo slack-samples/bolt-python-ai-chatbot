@@ -1,29 +1,26 @@
-name: Linting and formatting validation using ruff
+name: CI
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
   pull_request:
 
 jobs:
-  build:
+  lint:
     runs-on: ubuntu-latest
     timeout-minutes: 5
-    strategy:
-      matrix:
-        python-version: ["3.13"]
-
     steps:
       - uses: actions/checkout@v7
-      - name: Set up Python ${{ matrix.python-version }}
+      - name: Set up Python
         uses: actions/setup-python@v7
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: "3.15"
       - name: Install dependencies
         run: |
           pip install -U pip
           pip install -r requirements.txt
-      - name: Lint and check formatting with ruff
+      - name: Lint and check formatting
         run: |
           ruff check .
           ruff format --check .
