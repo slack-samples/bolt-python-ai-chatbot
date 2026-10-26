@@ -5,7 +5,7 @@ requires-python = ">=3.10"
 dependencies = [
     "slack-bolt==1.30.0",
     "slack-cli-hooks==0.3.0",
-    "openai==3.31.0",
+    "openai==3.35.1",
     "anthropic==1.15.0",
     "google-genai==2.31.0",
 ]
