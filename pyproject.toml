@@ -6,7 +6,7 @@ dependencies = [
     "slack-bolt==1.30.0",
     "slack-cli-hooks==0.3.0",
     "openai==3.52.0",
-    "anthropic==2.9.0",
+    "anthropic==2.10.0",
     "google-genai==2.33.0",
 ]
 
