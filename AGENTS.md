@@ -10,6 +10,10 @@ An AI chatbot app template for Slack built with Bolt for Python.
 
 To install the Slack plugin for your coding agent, follow [Claude Code, Codex, Cursor, and Other Coding Agents](./README.md#claude-code-codex-cursor-and-other-coding-agents) in the README.
 
+## Slack Skills
+
+Slack skills are pre-installed in `.agents/skills` (and `.claude/skills` for Claude Code). Use them for Slack work. If the Slack plugin is installed, prefer its `slack:` skills, such as `slack:block-kit`, which may be newer.
+
 ## Before you finish
 
 Run `ruff check .` and `ruff format --check .`. CI runs the same on every PR.
