@@ -12,7 +12,7 @@ To install the Slack plugin for your coding agent, follow [Claude Code, Codex, C
 
 ## Slack Skills
 
-Slack skills are pre-installed in `.agents/skills` (and `.claude/skills` for Claude Code). Use them for Slack work. If the Slack plugin is installed, prefer its `slack:` skills, such as `slack:block-kit`, which may be newer.
+Slack skills are pre-installed in `.agents/skills` (and `.claude/skills` for Claude Code). Use them for Slack work. If the Slack plugin is installed, prefer its `slack:` skills, such as `slack:block-kit`, which may be newer. To update the pre-installed skills, run `npx --yes skills@1 add slackapi/slack-skills-plugin --skill '*' --agent universal --agent claude-code --copy --yes` from this folder.
 
 ## Before you finish
 
